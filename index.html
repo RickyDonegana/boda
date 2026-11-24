@@ -178,8 +178,8 @@
 
     /* Video save the date */
     .std { display: grid; gap: 22px; align-items: center; max-width: 880px; margin: 0 auto; padding: 0 20px 64px; }
-    .std-video { width: 100%; max-width: 360px; margin: 0 auto; border: 1px solid var(--ink); padding: 6px; background: var(--card); }
-    .std-video video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: #000; }
+    .std-video { width: 100%; max-width: 820px; margin: 0 auto; border: 1px solid var(--ink); padding: 6px; background: var(--card); }
+    .std-video video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
     .std-text { text-align: center; }
     .std-text h2 { font-family: var(--script); font-weight: 400; font-size: 48px; margin: 6px 0; }
 
@@ -304,10 +304,6 @@
       .gallery { grid-template-columns: repeat(3, 1fr); }
       .table-dot { width: 48px; height: 48px; }
       .std { padding-bottom: 88px; }
-      .std.has-video { grid-template-columns: 1fr 1fr; }
-      .std.has-video .std-text { text-align: left; }
-      .std.has-video .std-text .ornament { justify-content: flex-start; }
-      .std.has-video .std-text .ornament::before { display: none; }
     }
 
     /* =====================================================================
@@ -425,15 +421,15 @@
 
     <!-- Video del save the date -->
     <section id="save-the-date" class="std">
-      <div class="std-video" id="std-video-box">
-        <video id="std-video" controls playsinline preload="metadata"></video>
-      </div>
       <div class="std-text">
         <p class="caps muted">Save the date</p>
         <h2>Guardá la fecha</h2>
         <div class="ornament" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg></div>
         <p class="phrase" style="margin:0">Hay días que se esperan toda una vida. Este es uno de ellos, y no lo imaginamos sin vos.</p>
         <p class="hint" id="std-pending" style="margin-top:14px">El video se suma muy pronto.</p>
+      </div>
+      <div class="std-video" id="std-video-box">
+        <video id="std-video" controls playsinline preload="none"></video>
       </div>
     </section>
 
@@ -774,8 +770,8 @@
       },
 
       // Link al video del save the date. Si se sube al proyecto, va en /public y se pone "/save-the-date.mp4".
-      videoSaveTheDate: "",
-      posterSaveTheDate: "",
+      videoSaveTheDate: "/save-the-date.mp4",
+      posterSaveTheDate: "/save-the-date.jpg",
 
       // PDF de la invitación formal (cuando esté lista)
       invitacionPdf: "",
