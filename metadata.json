@@ -1,0 +1,8 @@
+{
+  "name": "Boda Cami & Ricky",
+  "description": "Sitio web oficial de la boda de Cami & Ricky - Sábado 17 de Abril de 2027 en General Rodríguez",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

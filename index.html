@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cami & Ricky — 17 de Abril de 2027</title>
+  <meta name="description" content="Sitio web oficial de la boda de Cami & Ricky. Sábado 17 de Abril de 2027 en General Rodríguez, Provincia de Buenos Aires." />
+  <meta property="og:title" content="Cami & Ricky — Nuestra Boda" />
+  <meta property="og:description" content="Te esperamos el Sábado 17 de Abril de 2027 de 13:00 a 20:00 hs para celebrar juntos." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#FAF8F5" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN for instant standalone execution -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#E7E5E4',
+            sand: '#D6D3D1',
+            graphite: '#1C1917',
+            warmbg: '#FAF8F5',
+            warmcard: '#FFFFFF',
+            accent: '#8C7A6B',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #1C1917;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .font-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Editorial subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D6D3D1;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAF8F5] text-[#1C1917] selection:bg-[#E7E5E4] selection:text-[#1C1917]">
+
+  <!-- Top Announcement Bar & Preview Mode Controls -->
+  <header id="top-bar" class="w-full border-b border-stone-200/80 bg-[#FAF8F5] text-[#1C1917] px-4 py-2 text-xs">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center space-x-2 tracking-wide text-stone-600">
+        <span class="inline-block w-2 h-2 rounded-full bg-stone-500"></span>
+        <span class="font-medium">17.04.2027 • General Rodríguez, Buenos Aires</span>
+      </div>
+      <!-- Mode simulator toggle for organizers / guests -->
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] text-stone-500 font-sans">Simular visualización:</span>
+        <button id="btn-mode-toggle" type="button" class="px-2.5 py-1 text-[11px] rounded border border-stone-800 bg-stone-800 text-white hover:bg-stone-700 transition-colors shadow-xs">
+          Modo: Todos Desbloqueados (Vista Previa)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container (Mobile-first, max-w-2xl for strict editorial elegance) -->
+  <main class="max-w-2xl mx-auto px-4 sm:px-6 py-10 space-y-16">
+
+    <!-- =========================================================================
+         MÓDULO 1: PORTADA & SAVE THE DATE (Siempre visible)
+         ========================================================================= -->
+    <section id="modulo-portada" class="text-center pt-4 pb-2">
+      <!-- Monograma Editorial (Header) -->
+      <div class="w-12 h-12 rounded-full border border-stone-300 flex items-center justify-center font-serif text-stone-700 text-sm tracking-widest mx-auto mb-4 bg-white/90 shadow-xs" aria-label="Monograma Cami & Ricky">
+        <span>C &amp; R</span>
+      </div>
+
+      <div class="text-xs font-semibold tracking-[0.25em] text-stone-500 uppercase text-center mb-2">
+        SÁBADO 17 DE ABRIL DE 2027 · GENERAL RODRÍGUEZ
+      </div>
+
+      <h1 class="font-cinzel text-4xl sm:text-5xl md:text-6xl font-normal tracking-wide text-[#1C1917] mt-3 mb-4">
+        Cami <span class="font-playfair italic text-stone-400 font-normal">&amp;</span> Ricky
+      </h1>
+
+      <p class="text-sm sm:text-base text-stone-700 max-w-lg mx-auto leading-relaxed font-sans mb-8">
+        Soñamos con este día para mirarnos a los ojos, abrazar a los que más queremos y celebrar que nos elegimos.
+      </p>
+
+      <div class="w-12 h-px bg-stone-300 mx-auto my-6"></div>
+
+      <p class="font-cinzel text-base sm:text-lg font-semibold text-stone-900 tracking-wide mb-1">
+        Quinta Querandí
+      </p>
+      <p class="text-xs sm:text-sm font-medium tracking-wider text-stone-600 uppercase mb-8">
+        13:00 a 20:00 hs — General Rodríguez
+      </p>
+
+      <!-- Contador Dinámico en Tiempo Real -->
+      <div id="countdown-container" class="bg-white border border-stone-200/90 rounded-2xl p-6 md:p-8 shadow-sm transition-all mb-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-stone-500 mb-4">
+          Tiempo restante para celebrar juntos
+        </p>
+        <div class="grid grid-cols-4 gap-2 sm:gap-4">
+          <div class="flex flex-col items-center">
+            <span id="cd-days" class="tabular-nums font-cinzel text-3xl sm:text-4xl text-stone-900 font-medium leading-none mb-1">---</span>
+            <span class="text-[11px] uppercase tracking-wider text-stone-500">Días</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-stone-200">
+            <span id="cd-hours" class="tabular-nums font-cinzel text-3xl sm:text-4xl text-stone-900 font-medium leading-none mb-1">--</span>
+            <span class="text-[11px] uppercase tracking-wider text-stone-500">Horas</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-stone-200">
+            <span id="cd-minutes" class="tabular-nums font-cinzel text-3xl sm:text-4xl text-stone-900 font-medium leading-none mb-1">--</span>
+            <span class="text-[11px] uppercase tracking-wider text-stone-500">Minutos</span>
+          </div>
+          <div class="flex flex-col items-center border-l border-stone-200">
+            <span id="cd-seconds" class="tabular-nums font-cinzel text-3xl sm:text-4xl text-stone-900 font-medium leading-none mb-1">--</span>
+            <span class="text-[11px] uppercase tracking-wider text-stone-500">Segundos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones Principales de Acción -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <!-- Botón Principal: Mirá nuestro Save the Date -->
+        <a id="btn-save-the-date" href="https://#" target="_blank" rel="noopener noreferrer"
+           class="bg-stone-900 text-stone-50 rounded-xl py-3.5 px-5 text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"></polygon>
+          </svg>
+          Mirá nuestro Save the Date
+        </a>
+
+        <!-- Botón Secundario: Agendá la fecha en tu celular (Dropdown accesible) -->
+        <div class="relative w-full sm:w-auto">
+          <button id="btn-agendar-toggle" type="button"
+                  class="bg-stone-100 text-stone-800 border border-stone-200 rounded-xl py-3.5 px-5 text-xs font-medium hover:bg-stone-200 transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
+            <svg class="w-4 h-4 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6" stroke-width="2"></line>
+              <line x1="8" y1="2" x2="8" y2="6" stroke-width="2"></line>
+              <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"></line>
+            </svg>
+            Agendá la fecha en tu celular
+            <svg class="w-3.5 h-3.5 ml-1 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <!-- Dropdown opciones de calendario -->
+          <div id="agendar-dropdown" class="hidden absolute left-0 right-0 sm:left-auto sm:right-0 mt-2 w-full sm:w-56 bg-white border border-stone-200 rounded-xl shadow-lg z-20 py-1.5 text-left">
+            <a id="link-google-calendar" href="#" target="_blank" rel="noopener noreferrer"
+               class="block px-4 py-2.5 text-xs font-medium text-stone-700 hover:bg-stone-100 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-blue-500 mr-2.5"></span>
+              Google Calendar
+            </a>
+            <button id="btn-download-ics" type="button"
+                    class="w-full text-left px-4 py-2.5 text-xs font-medium text-stone-700 hover:bg-stone-100 flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2.5"></span>
+              Descargar archivo (.ics)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         MÓDULO 2: UBICACIÓN & DRESS CODE
+         data-unlock-date="2026-12-17"
+         ========================================================================= -->
+    <section id="modulo-invitacion" data-unlock-date="2026-12-17" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 2</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">Ubicación &amp; Dress Code</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-md mx-auto mt-2 leading-relaxed">
+            Este lugar cobra sentido porque van a estar ustedes. Los esperamos para compartir un día inolvidable.
+          </p>
+        </div>
+
+        <!-- Tarjeta de Dirección & Horario -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 md:p-8 shadow-sm transition-all space-y-5">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-[#FAF8F5] border border-stone-200 flex items-center justify-center shrink-0 text-stone-700">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-cinzel text-lg text-stone-900 font-semibold">Quinta Querandí</h3>
+              <p class="text-sm text-stone-600 mt-0.5">Azcuénaga 1318, General Rodríguez, Buenos Aires (13:00 a 20:00 hs).</p>
+              <p class="text-xs font-medium text-stone-500 mt-1">Puntualidad para acompañar el inicio de la ceremonia.</p>
+            </div>
+          </div>
+
+          <!-- Bloque de Movilidad: Cuadrícula de accesos rápidos -->
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-3">Accesos directos / Cómo llegar</p>
+            <div class="grid grid-cols-2 gap-3">
+              <a id="link-maps" href="https://maps.app.goo.gl/vxDY8c77FvPGk9MJ8" target="_blank" rel="noopener noreferrer"
+                 class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-[#FAF8F5]/60 hover:bg-white transition-all text-stone-800 text-xs text-center group">
+                <span class="font-semibold text-stone-900 mb-0.5">Google Maps</span>
+                <span class="text-[11px] text-stone-500">Ruta directa</span>
+              </a>
+
+              <a id="link-waze" href="https://waze.com/ul/h69y5h739v" target="_blank" rel="noopener noreferrer"
+                 class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-[#FAF8F5]/60 hover:bg-white transition-all text-stone-800 text-xs text-center group">
+                <span class="font-semibold text-stone-900 mb-0.5">Waze</span>
+                <span class="text-[11px] text-stone-500">Ruta directa</span>
+              </a>
+
+              <a id="link-uber" href="https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=Azcu%C3%A9naga%201318%2C%20General%20Rodr%C3%ADguez" target="_blank" rel="noopener noreferrer"
+                 class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-[#FAF8F5]/60 hover:bg-white transition-all text-stone-800 text-xs text-center group">
+                <span class="font-semibold text-stone-900 mb-0.5">Uber</span>
+                <span class="text-[11px] text-stone-500">Destino fijado</span>
+              </a>
+
+              <a id="link-didi" href="https://d.didiglobal.com/?destination=Azcu%C3%A9naga%201318%2C%20General%20Rodr%C3%ADguez" target="_blank" rel="noopener noreferrer"
+                 class="flex flex-col items-center justify-center p-3.5 rounded-xl border border-stone-200 hover:border-stone-400 bg-[#FAF8F5]/60 hover:bg-white transition-all text-stone-800 text-xs text-center group">
+                <span class="font-semibold text-stone-900 mb-0.5">DiDi</span>
+                <span class="text-[11px] text-stone-500">Solicitar viaje</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Dress Code -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 md:p-8 shadow-sm transition-all space-y-5">
+          <div class="flex items-center justify-between border-b border-stone-100 pb-3">
+            <span class="text-xs font-semibold uppercase tracking-wider text-stone-500">Código de Vestimenta</span>
+            <span class="font-cinzel text-base font-semibold text-stone-900">Elegante Sport</span>
+          </div>
+
+          <!-- Normas Esenciales -->
+          <div class="space-y-2.5 pt-1">
+            <div class="flex items-center gap-3 p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-xs font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-stone-900 shrink-0"></span>
+              <span>Mujeres: Vestido largo obligatorio.</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200/80 text-rose-950 text-xs leading-relaxed">
+              <p class="text-rose-900">
+                Blanco reservado exclusivamente para la novia. Color rojo no permitido.
+              </p>
+            </div>
+          </div>
+
+          <!-- Muestrario Visual de Dress Code (Paleta de Colores) -->
+          <div class="pt-3 border-t border-stone-100 space-y-4">
+            <!-- Fila 1: Tonos sugeridos -->
+            <div>
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-stone-600">Tonos sugeridos</span>
+                <span class="text-[11px] text-stone-400">Inspiración natural</span>
+              </div>
+              <div class="grid grid-cols-5 gap-2 sm:gap-3 text-center">
+                <!-- Oliva -->
+                <div class="flex flex-col items-center gap-1.5 group cursor-default">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-xs border border-black/10 transition-transform duration-300 group-hover:scale-110" style="background-color: #556B2F;" title="Verde Oliva (#556B2F)"></div>
+                  <span class="text-[10px] sm:text-[11px] text-stone-600 font-medium truncate">Oliva</span>
+                </div>
+                <!-- Terracota -->
+                <div class="flex flex-col items-center gap-1.5 group cursor-default">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-xs border border-black/10 transition-transform duration-300 group-hover:scale-110" style="background-color: #C86446;" title="Terracota (#C86446)"></div>
+                  <span class="text-[10px] sm:text-[11px] text-stone-600 font-medium truncate">Terracota</span>
+                </div>
+                <!-- Arena -->
+                <div class="flex flex-col items-center gap-1.5 group cursor-default">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-xs border border-black/10 transition-transform duration-300 group-hover:scale-110" style="background-color: #D2B48C;" title="Arena (#D2B48C)"></div>
+                  <span class="text-[10px] sm:text-[11px] text-stone-600 font-medium truncate">Arena</span>
+                </div>
+                <!-- Marino -->
+                <div class="flex flex-col items-center gap-1.5 group cursor-default">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-xs border border-black/10 transition-transform duration-300 group-hover:scale-110" style="background-color: #1E2F4D;" title="Azul Marino (#1E2F4D)"></div>
+                  <span class="text-[10px] sm:text-[11px] text-stone-600 font-medium truncate">Marino</span>
+                </div>
+                <!-- Lino -->
+                <div class="flex flex-col items-center gap-1.5 group cursor-default">
+                  <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full shadow-xs border border-stone-300 transition-transform duration-300 group-hover:scale-110" style="background-color: #E8E4DC;" title="Lino (#E8E4DC)"></div>
+                  <span class="text-[10px] sm:text-[11px] text-stone-600 font-medium truncate">Lino</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fila 2: Colores reservados -->
+            <div class="pt-2 border-t border-stone-100">
+              <div class="flex items-center justify-between mb-2.5">
+                <span class="text-[11px] font-semibold uppercase tracking-wider text-rose-800">Colores reservados</span>
+                <span class="text-[11px] text-rose-600 font-medium">Restricciones</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <!-- Blanco (Novia) -->
+                <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-stone-50 border border-stone-200">
+                  <div class="relative w-7 h-7 rounded-full bg-white border-2 border-stone-300 shadow-2xs shrink-0 flex items-center justify-center">
+                    <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="text-xs font-semibold text-stone-900 leading-tight">Blanco</p>
+                    <p class="text-[11px] text-stone-500">Reservado exclusivamente para la novia</p>
+                  </div>
+                </div>
+
+                <!-- Rojo (No permitido) -->
+                <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-rose-50/70 border border-rose-200">
+                  <div class="relative w-7 h-7 rounded-full bg-[#B91C1C] shadow-2xs shrink-0 flex items-center justify-center text-white">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div class="min-w-0">
+                    <p class="text-xs font-semibold text-rose-950 leading-tight">Rojo</p>
+                    <p class="text-[11px] text-rose-800">Color no permitido</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Descargar Invitación Formal (PDF) -->
+        <div class="text-center pt-2">
+          <a id="btn-download-invitation" href="https://#" target="_blank" rel="noopener noreferrer"
+             class="bg-stone-900 text-stone-50 rounded-xl py-3.5 px-5 text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto mx-auto">
+            <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>Descargar Invitación Formal (PDF)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         MÓDULO 3: NUESTRO HOGAR / MESA DE REGALOS
+         data-unlock-date="2027-01-17"
+         ========================================================================= -->
+    <section id="modulo-regalos" data-unlock-date="2027-01-17" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 3</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">Nuestro Hogar / Mesa de Regalos</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto mt-2 leading-relaxed font-sans">
+            Nuestro mayor regalo es que nos acompañen. Si además quieren ayudarnos a armar nuestro hogar, pueden sumar su aporte acá:
+          </p>
+        </div>
+
+        <!-- Visualizador de Meta Colectiva -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 md:p-8 shadow-sm transition-all space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+            <span class="text-xs font-semibold uppercase tracking-wider text-stone-500">Meta Global Acumulada</span>
+            <div class="flex items-baseline gap-1.5">
+              <span id="registry-accumulated" class="tabular-nums font-cinzel text-xl text-stone-900 font-bold">$2.300.000</span>
+              <span class="text-xs text-stone-500">/ $6.000.000 ARS</span>
+            </div>
+          </div>
+
+          <!-- Barra de Progreso General -->
+          <div class="space-y-1.5">
+            <div class="w-full bg-stone-100 h-3 rounded-full overflow-hidden p-0.5 border border-stone-200">
+              <div id="registry-global-bar" class="bg-stone-800 h-full rounded-full transition-all duration-500" style="width: 38.33%;"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-stone-500 font-medium">
+              <span id="registry-global-percentage">38% alcanzado</span>
+              <span>100% meta equipamiento</span>
+            </div>
+          </div>
+
+          <!-- 4 tarjetas con microfrases -->
+          <div class="pt-2">
+            <p class="text-xs font-semibold uppercase tracking-wider text-stone-500 mb-3">Objetivos del Hogar</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+
+              <!-- Item 1: Heladera No Frost -->
+              <div class="p-3.5 rounded-xl border border-stone-200 bg-[#FAF8F5] space-y-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 text-stone-700">
+                    <svg class="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="1.8"></rect>
+                      <line x1="5" y1="10" x2="19" y2="10" stroke-width="1.8"></line>
+                      <line x1="8" y1="6" x2="8" y2="8" stroke-width="2"></line>
+                      <line x1="8" y1="14" x2="8" y2="17" stroke-width="2"></line>
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-semibold text-stone-900 truncate">Heladera No Frost</h4>
+                    <p class="text-[11px] text-stone-500 italic">Para los asados en casa.</p>
+                    <p class="text-[10px] text-stone-400 tabular-nums mt-0.5">$880.000 de $2.200.000</p>
+                  </div>
+                  <span class="text-xs font-bold text-stone-700 tabular-nums">40%</span>
+                </div>
+                <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-stone-700 h-full rounded-full" style="width: 40%;"></div>
+                </div>
+              </div>
+
+              <!-- Item 2: Sommier King -->
+              <div class="p-3.5 rounded-xl border border-stone-200 bg-[#FAF8F5] space-y-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 text-stone-700">
+                    <svg class="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7v11m0-4h18m0-7v11M3 10h18M7 7h10"></path>
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-semibold text-stone-900 truncate">Sommier King</h4>
+                    <p class="text-[11px] text-stone-500 italic">Para descansar en esta nueva etapa.</p>
+                    <p class="text-[10px] text-stone-400 tabular-nums mt-0.5">$720.000 de $2.400.000</p>
+                  </div>
+                  <span class="text-xs font-bold text-stone-700 tabular-nums">30%</span>
+                </div>
+                <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-stone-700 h-full rounded-full" style="width: 30%;"></div>
+                </div>
+              </div>
+
+              <!-- Item 3: Microondas con Grill -->
+              <div class="p-3.5 rounded-xl border border-stone-200 bg-[#FAF8F5] space-y-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 text-stone-700">
+                    <svg class="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="2" y="4" width="20" height="16" rx="2" stroke-width="1.8"></rect>
+                      <rect x="5" y="7" width="10" height="10" stroke-width="1.5"></rect>
+                      <circle cx="18" cy="8" r="1" fill="currentColor"></circle>
+                      <circle cx="18" cy="12" r="1" fill="currentColor"></circle>
+                      <line x1="17" y1="16" x2="19" y2="16" stroke-width="1.5"></line>
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-semibold text-stone-900 truncate">Microondas con Grill</h4>
+                    <p class="text-[11px] text-stone-500 italic">Para el día a día de nuestro hogar.</p>
+                    <p class="text-[10px] text-stone-400 tabular-nums mt-0.5">$400.000 de $800.000</p>
+                  </div>
+                  <span class="text-xs font-bold text-stone-700 tabular-nums">50%</span>
+                </div>
+                <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-stone-700 h-full rounded-full" style="width: 50%;"></div>
+                </div>
+              </div>
+
+              <!-- Item 4: Equipamiento de Cocina -->
+              <div class="p-3.5 rounded-xl border border-stone-200 bg-[#FAF8F5] space-y-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 text-stone-700">
+                    <svg class="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"></path>
+                    </svg>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-xs font-semibold text-stone-900 truncate">Equipamiento de Cocina</h4>
+                    <p class="text-[11px] text-stone-500 italic">Para agasajarlos cuando nos visiten.</p>
+                    <p class="text-[10px] text-stone-400 tabular-nums mt-0.5">$300.000 de $600.000</p>
+                  </div>
+                  <span class="text-xs font-bold text-stone-700 tabular-nums">50%</span>
+                </div>
+                <div class="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-stone-700 h-full rounded-full" style="width: 50%;"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Selector de Datos Bancarios (Tabs: Pesos / Dólares) -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 md:p-8 shadow-sm transition-all space-y-5">
+          <div class="flex items-center justify-between border-b border-stone-200 pb-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-stone-500">Datos para Transferir</span>
+            <!-- Tab switches -->
+            <div class="flex bg-stone-100 p-0.5 rounded-lg border border-stone-200">
+              <button id="tab-ars-btn" type="button" class="px-3 py-1 rounded-md text-xs font-semibold bg-white text-stone-900 shadow-xs">
+                Pesos (MP)
+              </button>
+              <button id="tab-usd-btn" type="button" class="px-3 py-1 rounded-md text-xs font-medium text-stone-500 hover:text-stone-900">
+                Dólares (BIND)
+              </button>
+            </div>
+          </div>
+
+          <!-- Pestaña 1: Pesos Mercado Pago -->
+          <div id="tab-ars-content" class="space-y-3.5">
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+              <div>
+                <span class="text-[10px] uppercase font-semibold text-stone-500 block">Alias Mercado Pago</span>
+                <span class="font-mono text-sm font-semibold text-stone-900 select-all" id="alias-ars-text">rickydonegana.mp</span>
+              </div>
+              <button type="button" onclick="copyToClipboard('rickydonegana.mp', this)"
+                      class="copy-btn px-3.5 py-1.5 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-medium transition-all shadow-xs">
+                Copiar datos
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+              <div>
+                <span class="text-[10px] uppercase font-semibold text-stone-500 block">CVU</span>
+                <span class="font-mono text-xs text-stone-800 select-all tabular-nums" id="cvu-ars-text">0000003100062113507784</span>
+              </div>
+              <button type="button" onclick="copyToClipboard('0000003100062113507784', this)"
+                      class="copy-btn px-3.5 py-1.5 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-medium transition-all shadow-xs">
+                Copiar datos
+              </button>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 text-xs text-stone-600">
+              <span class="text-[10px] uppercase font-semibold text-stone-500 block">Titular</span>
+              <span class="font-medium text-stone-900">Ricardo Atilio Donegana Gutierrez</span>
+            </div>
+
+            <!-- Botón directo de apertura de app: Abrir en la App de Mercado Pago -->
+            <a href="mercadopago://" onclick="handleMercadoPagoApp(event)"
+               class="w-full inline-flex items-center justify-center px-4 py-3.5 rounded-xl bg-[#009EE3] hover:bg-[#0089c7] text-white text-xs font-semibold tracking-wide transition-colors shadow-xs gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <span>Abrir en la App de Mercado Pago</span>
+            </a>
+          </div>
+
+          <!-- Pestaña 2: Dólares BIND -->
+          <div id="tab-usd-content" class="hidden space-y-3.5">
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+              <div>
+                <span class="text-[10px] uppercase font-semibold text-stone-500 block">Alias Banco Industrial (BIND)</span>
+                <span class="font-mono text-sm font-semibold text-stone-900 select-all" id="alias-usd-text">atenuar.matizaba.pez</span>
+              </div>
+              <button type="button" onclick="copyToClipboard('atenuar.matizaba.pez', this)"
+                      class="copy-btn px-3.5 py-1.5 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-medium transition-all shadow-xs">
+                Copiar datos
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-stone-50 border border-stone-200">
+              <div>
+                <span class="text-[10px] uppercase font-semibold text-stone-500 block">CBU en Dólares</span>
+                <span class="font-mono text-xs text-stone-800 select-all tabular-nums" id="cbu-usd-text">3220001888045913350017</span>
+              </div>
+              <button type="button" onclick="copyToClipboard('3220001888045913350017', this)"
+                      class="copy-btn px-3.5 py-1.5 rounded-lg bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-medium transition-all shadow-xs">
+                Copiar datos
+              </button>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-stone-50/70 border border-stone-200 text-xs text-stone-600">
+              <span class="text-[10px] uppercase font-semibold text-stone-500 block">Titular</span>
+              <span class="font-medium text-stone-900">Ricardo Atilio Donegana Gutierrez</span>
+            </div>
+
+            <!-- Botón directo de apertura de app: Abrir en la App de Mercado Pago (también disponible en USD) -->
+            <a href="mercadopago://" onclick="handleMercadoPagoApp(event)"
+               class="w-full inline-flex items-center justify-center px-4 py-3.5 rounded-xl bg-[#009EE3] hover:bg-[#0089c7] text-white text-xs font-semibold tracking-wide transition-colors shadow-xs gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <span>Abrir en la App de Mercado Pago</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         MÓDULO 4: EL CRONOGRAMA DE NUESTRO DÍA
+         data-unlock-date="2027-02-17"
+         ========================================================================= -->
+    <section id="modulo-cronograma" data-unlock-date="2027-02-17" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 4</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">El Cronograma de Nuestro Día</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto mt-2 leading-relaxed font-sans">
+            Los momentos más importantes de nuestro día:
+          </p>
+        </div>
+
+        <!-- Línea de Tiempo Vertical Editorial -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-8 shadow-sm transition-all">
+          <div class="relative border-l border-stone-200 ml-3 sm:ml-4 pl-6 space-y-6 sm:space-y-7">
+
+            <!-- Item 1: 13:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-300 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">13:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-medium mt-0.5">Recepción</span>
+              </div>
+            </div>
+
+            <!-- Item 2: 14:00 a 15:30 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-800 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">14:00 a 15:30 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-semibold mt-0.5">Ceremonia</span>
+              </div>
+            </div>
+
+            <!-- Item 3: 15:30 a 17:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-300 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">15:30 a 17:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-medium mt-0.5">Almuerzo Principal</span>
+              </div>
+            </div>
+
+            <!-- Item 4: 17:00 a 17:30 hs (1ª Tanda de Baile: Años 80 & 90) -->
+            <div class="relative group">
+              <div class="absolute -left-[33px] sm:-left-[37px] top-1.5 w-4 h-4 rounded-full bg-stone-900 border-2 border-white ring-2 ring-stone-300 shadow-xs flex items-center justify-center">
+                <span class="w-1 h-1 rounded-full bg-white"></span>
+              </div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-bold text-stone-900">17:00 a 17:30 hs</span>
+                <div class="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200/90 mt-2 space-y-2.5 shadow-xs hover:border-stone-400 transition-all">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <span class="font-playfair text-base sm:text-lg text-stone-950 font-bold block">1ª Tanda de Baile</span>
+                      <span class="font-cinzel text-sm text-stone-700 font-medium">Años 80 &amp; 90</span>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-stone-900 text-stone-100 shadow-2xs font-sans">
+                      Apertura de pista
+                    </span>
+                  </div>
+
+                  <div class="pt-1">
+                    <a href="#modulo-musica" class="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-800 hover:text-stone-950 underline underline-offset-2 transition-colors group">
+                      <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+                      </svg>
+                      <span>Ir a la música y playlist</span>
+                      <svg class="w-3 h-3 text-stone-400 group-hover:text-stone-800 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 5: 17:30 a 18:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-300 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">17:30 a 18:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-medium mt-0.5">Postre</span>
+              </div>
+            </div>
+
+            <!-- Item 6: 18:00 a 18:30 hs (2ª Tanda de Baile: Años 2000) -->
+            <div class="relative group">
+              <div class="absolute -left-[33px] sm:-left-[37px] top-1.5 w-4 h-4 rounded-full bg-stone-900 border-2 border-white ring-2 ring-stone-300 shadow-xs flex items-center justify-center">
+                <span class="w-1 h-1 rounded-full bg-white"></span>
+              </div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-bold text-stone-900">18:00 a 18:30 hs</span>
+                <div class="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200/90 mt-2 space-y-2.5 shadow-xs hover:border-stone-400 transition-all">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <span class="font-playfair text-base sm:text-lg text-stone-950 font-bold block">2ª Tanda de Baile</span>
+                      <span class="font-cinzel text-sm text-stone-700 font-medium">Años 2000</span>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-stone-900 text-stone-100 shadow-2xs font-sans">
+                      Festejo en la pista
+                    </span>
+                  </div>
+
+                  <div class="pt-1">
+                    <a href="#modulo-musica" class="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-800 hover:text-stone-950 underline underline-offset-2 transition-colors group">
+                      <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+                      </svg>
+                      <span>Ir a la música y playlist</span>
+                      <svg class="w-3 h-3 text-stone-400 group-hover:text-stone-800 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 7: 18:30 a 19:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-300 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">18:30 a 19:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-medium mt-0.5">Mesa Dulce &amp; Café</span>
+              </div>
+            </div>
+
+            <!-- Item 8: 19:00 a 19:30 hs (3ª Tanda de Baile: 2010 al Presente) -->
+            <div class="relative group">
+              <div class="absolute -left-[33px] sm:-left-[37px] top-1.5 w-4 h-4 rounded-full bg-stone-900 border-2 border-white ring-2 ring-stone-300 shadow-xs flex items-center justify-center">
+                <span class="w-1 h-1 rounded-full bg-white"></span>
+              </div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-bold text-stone-900">19:00 a 19:30 hs</span>
+                <div class="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200/90 mt-2 space-y-2.5 shadow-xs hover:border-stone-400 transition-all">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <span class="font-playfair text-base sm:text-lg text-stone-950 font-bold block">3ª Tanda de Baile</span>
+                      <span class="font-cinzel text-sm text-stone-700 font-medium">2010 al Presente</span>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-stone-900 text-stone-100 shadow-2xs font-sans">
+                      Cierre de fiesta
+                    </span>
+                  </div>
+
+                  <div class="pt-1">
+                    <a href="#modulo-musica" class="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-800 hover:text-stone-950 underline underline-offset-2 transition-colors group">
+                      <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+                      </svg>
+                      <span>Ir a la música y playlist</span>
+                      <svg class="w-3 h-3 text-stone-400 group-hover:text-stone-800 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 9: 19:30 a 20:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-300 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">19:30 a 20:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-medium mt-0.5">Brindis Final</span>
+              </div>
+            </div>
+
+            <!-- Item 10: 20:00 hs -->
+            <div class="relative group">
+              <div class="absolute -left-[31px] sm:-left-[35px] top-1.5 w-3 h-3 rounded-full bg-stone-800 border-2 border-white"></div>
+              <div class="flex flex-col">
+                <span class="tabular-nums font-cinzel text-sm font-semibold text-stone-900">20:00 hs</span>
+                <span class="font-playfair text-base text-stone-900 font-semibold mt-0.5">Fin del Evento</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Botones de Acción del Cronograma -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <!-- Sincronizar cronograma en mi celular -->
+          <button id="btn-sync-schedule-ics" type="button"
+                  class="bg-stone-100 hover:bg-stone-200 text-stone-800 border border-stone-300 rounded-xl py-3.5 px-5 text-xs font-semibold tracking-wide transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
+            <svg class="w-4 h-4 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Sincronizar cronograma en mi celular (.ics)</span>
+          </button>
+
+          <!-- Descargar Cronograma Oficial (PDF) -->
+          <a id="btn-download-schedule" href="https://#" target="_blank" rel="noopener noreferrer"
+             class="bg-stone-900 text-stone-50 rounded-xl py-3.5 px-5 text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto">
+            <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <span>Descargar Cronograma Oficial en PDF</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         MÓDULO 5: ENCONTRÁ TU LUGAR / PLANO DEL SALÓN
+         data-unlock-date="2027-04-03"
+         ========================================================================= -->
+    <section id="modulo-mesas" data-unlock-date="2027-04-03" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 5</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">Encontrá tu Lugar / Plano del Salón</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto mt-2 leading-relaxed font-sans">
+            Pensamos cada lugar para que compartan la tarde con la gente que más queremos.
+          </p>
+        </div>
+
+        <!-- Esquema del Salón Interactivo / Grilla Editorial Oficial (3 Columnas con Mesas Circulares) -->
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-4 sm:p-8 shadow-sm space-y-5 transition-all">
+          <!-- Cabecera del Plano -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-stone-500 border-b border-stone-100 pb-3">
+            <span class="font-medium uppercase tracking-wider text-stone-800">Plano Oficial del Salón</span>
+            <span class="text-[11px] text-stone-500">Distribución de 3 columnas • Clic en mesa para consultar lista</span>
+          </div>
+
+          <!-- Representación del Layout Arquitectónico Minimalista -->
+          <div class="p-4 sm:p-6 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-4">
+
+            <!-- ARRIBA: INDICADOR CENTRADO: ENTRADA PRINCIPAL -->
+            <div class="max-w-xs mx-auto p-2.5 sm:p-3 rounded-xl bg-[#1C1917] text-white border border-stone-800 flex flex-col items-center justify-center text-center shadow-xs">
+              <svg class="w-4 h-4 text-stone-300 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+              </svg>
+              <span class="text-[8px] uppercase tracking-wider text-stone-400 font-semibold leading-none">Acceso General</span>
+              <span class="font-cinzel text-xs sm:text-sm font-bold text-white mt-0.5 leading-none">ENTRADA PRINCIPAL</span>
+            </div>
+
+            <!-- Grilla Principal de 3 Columnas: Mesas 01 a 07 | Pista Central | Mesas 08 a 14 -->
+            <div class="grid grid-cols-3 gap-2 sm:gap-4 items-stretch max-w-2xl mx-auto">
+              
+              <!-- Columna 1 (Izquierda): Mesas 01 a 07 (Círculos Perfectos) -->
+              <div class="flex flex-col items-center justify-between gap-3 sm:gap-4 py-1">
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">01</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">02</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">03</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">04</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">05</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">06</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">07</span>
+                </a>
+              </div>
+
+              <!-- Columna 2 (Centro): PISTA DE BAILE CENTRAL -->
+              <div class="flex flex-col justify-between py-1">
+                <div class="h-full rounded-2xl bg-amber-50/90 border-2 border-amber-300 text-amber-950 flex flex-col items-center justify-center text-center p-3 sm:p-6 shadow-xs relative">
+                  <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-amber-800 font-bold leading-none">Pista Central</span>
+                  <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-200/80 border border-amber-400 flex items-center justify-center my-3 text-amber-900 shadow-2xs">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                  </div>
+                  <span class="font-cinzel text-base sm:text-xl font-bold text-amber-950 tracking-wider">PISTA</span>
+                  <span class="text-[10px] sm:text-xs text-amber-800 font-medium mt-1">Pista de Baile</span>
+                </div>
+              </div>
+
+              <!-- Columna 3 (Derecha): Mesas 08 a 14 (Círculos Perfectos) -->
+              <div class="flex flex-col items-center justify-between gap-3 sm:gap-4 py-1">
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">08</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">09</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">10</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">11</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">12</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">13</span>
+                </a>
+                <a href="https://#" target="_blank" rel="noopener noreferrer"
+                   class="table-card rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 border-2 border-stone-300 hover:border-stone-800 bg-stone-50 hover:bg-white flex items-center justify-center cursor-pointer shadow-xs transition-transform transform active:scale-95 group">
+                  <span class="tabular-nums font-cinzel text-sm sm:text-base md:text-lg font-bold text-stone-800 group-hover:text-black">14</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- AL FRENTE: INDICADOR CENTRADO: MESA DE LOS NOVIOS -->
+            <div class="max-w-xs mx-auto p-3 sm:p-3.5 rounded-xl border border-stone-900 bg-[#1C1917] text-white shadow-sm flex flex-col items-center justify-center text-center">
+              <span class="text-[9px] tracking-[0.2em] uppercase text-stone-400 font-semibold leading-none">Al Frente</span>
+              <span class="font-cinzel text-sm sm:text-base font-bold text-white tracking-wide mt-1">MESA DE LOS NOVIOS</span>
+              <span class="text-[10px] text-stone-300 mt-0.5">Cami &amp; Ricky</span>
+            </div>
+
+            <!-- Referencias / Leyenda del Plano -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 text-[10px] text-stone-600 border-t border-stone-200">
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-[#1C1917] shrink-0"></span>
+                <span>Entrada Principal</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded-full bg-stone-50 border border-stone-300 shrink-0"></span>
+                <span>Mesas 01 a 14</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-amber-100 border border-amber-300 shrink-0"></span>
+                <span>Pista Central</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-3 h-3 rounded bg-[#1C1917] shrink-0"></span>
+                <span>Mesa de los Novios</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Botón General Oficial -->
+          <div class="text-center pt-2">
+            <a id="btn-table-sheet" href="https://#" target="_blank" rel="noopener noreferrer"
+               class="bg-stone-900 text-stone-50 rounded-xl py-3.5 px-5 text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors shadow-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto mx-auto">
+              <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span>Consultar mi mesa y capitán (Planilla Oficial)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         MÓDULO 6: LA MÚSICA EN TRES ÉPOCAS
+         data-unlock-date="2027-04-10"
+         ========================================================================= -->
+    <section id="modulo-musica" data-unlock-date="2027-04-10" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 6</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">La Música en Tres Épocas</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto mt-2 leading-relaxed font-sans">
+            Un recorrido por tres épocas para celebrar juntos:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <!-- Tanda 1 (17:00 hs): Años 80 & 90 -->
+          <div class="bg-white border border-stone-200/90 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between space-y-5 transition-all hover:border-stone-400">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block">1ª Tanda · 17:00 hs</span>
+              <h3 class="font-cinzel text-lg font-semibold text-stone-900 mt-1">Años 80 &amp; 90</h3>
+            </div>
+
+            <a href="https://open.spotify.com/search/Nuestras%20Raices%20Boda%2080s%2090s" target="_blank" rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl border border-stone-300 hover:border-emerald-600 bg-stone-50 hover:bg-emerald-50/50 text-stone-800 hover:text-emerald-900 text-xs font-semibold tracking-wide transition-colors gap-2">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+              </svg>
+              <span>Escuchar en Spotify</span>
+            </a>
+          </div>
+
+          <!-- Tanda 2 (18:00 hs): Años 2000 -->
+          <div class="bg-white border border-stone-200/90 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between space-y-5 transition-all hover:border-stone-400">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block">2ª Tanda · 18:00 hs</span>
+              <h3 class="font-cinzel text-lg font-semibold text-stone-900 mt-1">Años 2000</h3>
+            </div>
+
+            <a href="https://open.spotify.com/search/Juventud%202000s%20Boda" target="_blank" rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl border border-stone-300 hover:border-emerald-600 bg-stone-50 hover:bg-emerald-50/50 text-stone-800 hover:text-emerald-900 text-xs font-semibold tracking-wide transition-colors gap-2">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+              </svg>
+              <span>Escuchar en Spotify</span>
+            </a>
+          </div>
+
+          <!-- Tanda 3 (19:00 hs): 2010 al Presente -->
+          <div class="bg-white border border-stone-200/90 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between space-y-5 transition-all hover:border-stone-400">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 block">3ª Tanda · 19:00 hs</span>
+              <h3 class="font-cinzel text-lg font-semibold text-stone-900 mt-1">2010 al Presente</h3>
+            </div>
+
+            <a href="https://open.spotify.com/search/Nuestro%20Tiempo%20Boda%20Actual" target="_blank" rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center px-4 py-3 rounded-xl border border-stone-300 hover:border-emerald-600 bg-stone-50 hover:bg-emerald-50/50 text-stone-800 hover:text-emerald-900 text-xs font-semibold tracking-wide transition-colors gap-2">
+              <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.861.208c-2.357-1.44-5.325-1.765-8.82-0.966a.627.627 0 11-.277-1.224c3.824-.873 7.108-.507 9.75 1.119a.627.627 0 01.208.863zm1.224-2.723a.784.784 0 01-1.079.258c-2.697-1.658-6.81-2.138-9.998-1.171a.784.784 0 11-.456-1.5c3.642-1.106 8.196-.576 11.275 1.334a.784.784 0 01.258 1.079zm.105-2.835C14.69 8.92 9.38 8.745 6.294 9.68a.94.94 0 11-.548-1.8c3.54-1.074 9.42-.871 13.155 1.347a.94.94 0 01-1.011 1.639z"/>
+              </svg>
+              <span>Escuchar en Spotify</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         MÓDULO 7: CÁPSULA DE RECUERDOS
+         data-unlock-date="2027-04-17"
+         ========================================================================= -->
+    <section id="modulo-fotos" data-unlock-date="2027-04-17" class="space-y-6">
+      <div class="module-content space-y-6">
+        <div class="text-center">
+          <div class="text-xs font-medium tracking-[0.2em] text-stone-400 uppercase text-center mb-1">Módulo 7</div>
+          <h2 class="font-cinzel text-2xl sm:text-3xl text-[#1C1917] mt-1">Cápsula de Recuerdos</h2>
+          <p class="text-xs sm:text-sm text-stone-600 max-w-lg mx-auto mt-2 leading-relaxed font-sans">
+            Queremos guardar este día también desde sus ojos. Subí acá tus fotos y videos para sumarlos al álbum.
+          </p>
+        </div>
+
+        <div class="bg-white border border-stone-200/90 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 transition-all">
+          <!-- Dropzone interactivo -->
+          <div id="dropzone"
+               class="border-2 border-dashed border-stone-300 hover:border-stone-800 rounded-2xl p-8 sm:p-10 text-center transition-colors bg-[#FAF8F5]/60 hover:bg-[#FAF8F5] cursor-pointer flex flex-col items-center justify-center space-y-3">
+            <input type="file" id="photo-file-input" class="hidden" accept="image/*,video/*" multiple />
+            <div class="w-12 h-12 rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-[#1C1917]">Arrastrá tus fotos o videos aquí</p>
+              <p class="text-xs text-[#57534E] mt-0.5">o hacé clic para seleccionar desde tu dispositivo</p>
+            </div>
+            <button type="button" id="btn-select-files"
+                    class="bg-stone-100 hover:bg-stone-200 text-stone-900 border border-stone-300 rounded-xl px-4 py-2 text-xs font-semibold tracking-wide transition-colors">
+              Seleccionar archivos
+            </button>
+          </div>
+
+          <!-- Galería de Miniaturas Previsualizadas -->
+          <div id="photo-preview-container" class="space-y-3 hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold uppercase tracking-wider text-stone-600">Fotos preparadas (<span id="photo-count">0</span>)</span>
+              <button type="button" id="btn-clear-photos" class="text-xs text-rose-600 hover:underline">Limpiar selección</button>
+            </div>
+            <div id="photo-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5"></div>
+          </div>
+
+          <!-- Enlace directo al Álbum en la Nube -->
+          <div class="pt-3 border-t border-stone-100 text-center">
+            <a id="btn-shared-album" href="https://photos.google.com" target="_blank" rel="noopener noreferrer"
+               class="bg-stone-900 text-stone-50 rounded-xl py-3.5 px-6 text-sm font-medium tracking-wide hover:bg-stone-800 transition-colors shadow-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto mx-auto">
+              <svg class="w-4 h-4 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+              </svg>
+              <span>Subir fotos y videos al álbum compartido</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Editorial -->
+    <footer class="text-center pt-8 pb-12 border-t border-stone-200">
+      <p class="font-cinzel text-lg font-medium text-stone-800">Cami &amp; Ricky</p>
+      <p class="text-xs text-stone-500 mt-1">17 de Abril de 2027 • General Rodríguez</p>
+      <p class="text-[11px] text-stone-400 mt-4">Desarrollado con dedicación para nuestra familia y amigos.</p>
+    </footer>
+
+  </main>
+
+
+  <!-- =========================================================================
+       4. SCRIPTS JS INTEGRADOS (VANILLA JS PURO)
+       ========================================================================= -->
+  <script>
+    // 1. DATOS MAESTROS DEL EVENTO Y CONFIGURACIÓN
+    const EVENT_CONFIG = {
+      couple: {
+        name1: "Cami",
+        name2: "Ricky",
+        fullNameRecipient: "Ricardo Atilio Donegana Gutierrez"
+      },
+      date: {
+        targetIso: "2027-04-17T13:00:00-03:00",
+        displayDate: "Sábado 17 de Abril de 2027",
+        displayTime: "13:00 a 20:00 hs",
+        calendarEndIso: "2027-04-17T20:00:00-03:00"
+      },
+      venue: {
+        name: "Quinta Querandí",
+        address: "Azcuénaga 1318, B1748 Gral. Rodríguez, Provincia de Buenos Aires",
+        mapsUrl: "https://maps.app.goo.gl/vxDY8c77FvPGk9MJ8",
+        wazeUrl: "https://waze.com/ul/h69y5h739v",
+        uberUrl: "https://m.uber.com/ul/?action=setPickup&dropoff[formatted_address]=Azcu%C3%A9naga%201318%2C%20General%20Rodr%C3%ADguez",
+        cabifyUrl: "https://cabify.com/app/ride?destination_name=Azcu%C3%A9naga%201318%2C%20General%20Rodr%C3%ADguez",
+        didiUrl: "https://d.didiglobal.com/?destination=Azcu%C3%A9naga%201318%2C%20General%20Rodr%C3%ADguez"
+      },
+      dressCode: {
+        title: "Elegante Sport",
+        femaleRule: "Mujeres: Vestido largo obligatorio.",
+        restrictions: [
+          "Color blanco reservado exclusivamente para la novia.",
+          "Color rojo estrictamente prohibido."
+        ],
+        note: "Al ser un evento de día en espacio abierto, se sugiere calzado cómodo para césped y telas frescas."
+      },
+      registry: {
+        targetGlobal: 6000000, // $6.000.000 ARS
+        items: [
+          { name: "Heladera No Frost", target: 2200000, current: 880000 },
+          { name: "Cama Sommier King", target: 2400000, current: 720000 },
+          { name: "Microondas con Grill", target: 800000, current: 400000 },
+          { name: "Equipamiento de Cocina", target: 600000, current: 300000 }
+        ],
+        bankAccounts: {
+          ars: {
+            type: "Pesos (Mercado Pago)",
+            alias: "rickydonegana.mp",
+            cvu: "0000003100062113507784",
+            titular: "Ricardo Atilio Donegana Gutierrez"
+          },
+          usd: {
+            type: "Dólares (Banco Industrial - BIND)",
+            alias: "atenuar.matizaba.pez",
+            cbu: "3220001888045913350017",
+            titular: "Ricardo Atilio Donegana Gutierrez"
+          }
+        }
+      },
+      externalLinks: {
+        saveTheDateVideo: "https://#", // Reemplazar por link de video
+        invitationPdf: "https://#",    // Reemplazar por link del PDF de invitación
+        schedulePdf: "https://#",      // Reemplazar por link del PDF de cronograma
+        tableLayoutSheet: "https://#", // Reemplazar por Google Sheet de mesas y capitanes
+        sharedAlbumUrl: "https://photos.google.com" // Álbum compartido de fotos
+      }
+    };
+
+    // Mercado Pago App Deep-Link Handler
+    window.handleMercadoPagoApp = function(event) {
+      if (event) event.preventDefault();
+      const mpScheme = "mercadopago://";
+      const webFallback = "https://www.mercadopago.com.ar";
+      const startTime = Date.now();
+      
+      window.location.href = mpScheme;
+      
+      setTimeout(() => {
+        if (Date.now() - startTime < 2000) {
+          window.open(webFallback, "_blank");
+        }
+      }, 1500);
+    };
+
+    // State for preview simulator (unlocked by default for initial review)
+    let forceUnlockAll = true;
+
+    // Month names in Spanish for formatted date display
+    const MONTH_NAMES = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    function formatSpanishDate(isoDateStr) {
+      const parts = isoDateStr.split("-");
+      if (parts.length !== 3) return isoDateStr;
+      const year = parts[0];
+      const monthIndex = parseInt(parts[1], 10) - 1;
+      const day = parts[2];
+      return `${day} de ${MONTH_NAMES[monthIndex]} de ${year}`;
+    }
+
+    // 2. ALGORITMO DE DESBLOQUEO TEMPORAL AUTOMÁTICO
+    function applyTimeLocking() {
+      const modules = document.querySelectorAll("[data-unlock-date]");
+      const now = new Date();
+
+      modules.forEach((mod) => {
+        const unlockDateStr = mod.getAttribute("data-unlock-date");
+        if (!unlockDateStr) return;
+
+        // Parse YYYY-MM-DD
+        const targetDate = new Date(unlockDateStr + "T00:00:00");
+        const isUnlocked = forceUnlockAll || (now >= targetDate);
+
+        const contentEl = mod.querySelector(".module-content");
+        let lockCard = mod.querySelector(".lock-card");
+
+        if (isUnlocked) {
+          // Show real content
+          if (contentEl) contentEl.classList.remove("hidden");
+          if (lockCard) lockCard.remove();
+        } else {
+          // Hide real content and show sober lock card
+          if (contentEl) contentEl.classList.add("hidden");
+
+          if (!lockCard) {
+            lockCard = document.createElement("div");
+            lockCard.className = "lock-card bg-white border border-stone-200/90 rounded-2xl p-8 text-center shadow-sm space-y-3 transition-all";
+            const formattedDate = formatSpanishDate(unlockDateStr);
+
+            lockCard.innerHTML = `
+              <div class="w-12 h-12 mx-auto rounded-full bg-[#FAF8F5] border border-stone-200 flex items-center justify-center text-stone-500 mb-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-width="1.8"></rect>
+                  <path d="M7 11V7a5 5 0 0110 0v4" stroke-width="1.8"></path>
+                </svg>
+              </div>
+              <h3 class="font-cinzel text-lg text-stone-900 font-semibold">Contenido Reservado</h3>
+              <p class="text-xs text-stone-600 font-medium">Este módulo se habilitará el <strong class="text-stone-900 font-semibold">${formattedDate}</strong>.</p>
+              <p class="text-[11px] text-stone-400">Te avisaremos tan pronto esté disponible para coordinar todos los detalles.</p>
+            `;
+            mod.appendChild(lockCard);
+          }
+        }
+      });
+    }
+
+    // Toggle Preview Simulation
+    const btnModeToggle = document.getElementById("btn-mode-toggle");
+    if (btnModeToggle) {
+      btnModeToggle.addEventListener("click", () => {
+        forceUnlockAll = !forceUnlockAll;
+        if (forceUnlockAll) {
+          btnModeToggle.textContent = "Modo: Todos Desbloqueados (Vista Previa)";
+          btnModeToggle.classList.add("bg-stone-800", "text-white");
+          btnModeToggle.classList.remove("bg-white", "text-stone-700");
+        } else {
+          btnModeToggle.textContent = "Modo: Fecha Real (Bloqueos activos)";
+          btnModeToggle.classList.remove("bg-stone-800", "text-white");
+          btnModeToggle.classList.add("bg-white", "text-stone-700");
+        }
+        applyTimeLocking();
+      });
+    }
+
+    // 3. CONTADOR DINÁMICO EN TIEMPO REAL
+    function updateCountdown() {
+      const targetTime = new Date(EVENT_CONFIG.date.targetIso).getTime();
+      const currentTime = new Date().getTime();
+      const diff = targetTime - currentTime;
+
+      const cdDays = document.getElementById("cd-days");
+      const cdHours = document.getElementById("cd-hours");
+      const cdMinutes = document.getElementById("cd-minutes");
+      const cdSeconds = document.getElementById("cd-seconds");
+
+      if (diff <= 0) {
+        if (cdDays) cdDays.textContent = "0";
+        if (cdHours) cdHours.textContent = "00";
+        if (cdMinutes) cdMinutes.textContent = "00";
+        if (cdSeconds) cdSeconds.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (cdDays) cdDays.textContent = days.toString();
+      if (cdHours) cdHours.textContent = hours.toString().padStart(2, "0");
+      if (cdMinutes) cdMinutes.textContent = minutes.toString().padStart(2, "0");
+      if (cdSeconds) cdSeconds.textContent = seconds.toString().padStart(2, "0");
+    }
+
+    // 4. FUNCIÓN DE COPIADO AL PORTAPAPELES CON FEEDBACK ACCESIBLE
+    window.copyToClipboard = function(text, btnElement) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(onSuccess).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+
+      function fallbackCopy() {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand("copy");
+          onSuccess();
+        } catch (err) {
+          console.error("Error al copiar", err);
+        }
+        document.body.removeChild(textArea);
+      }
+
+      function onSuccess() {
+        if (!btnElement) return;
+        const originalText = btnElement.textContent;
+        btnElement.textContent = "¡Copiado con éxito!";
+        btnElement.classList.add("bg-stone-900", "text-white", "border-stone-900");
+        btnElement.classList.remove("bg-white", "text-stone-700");
+
+        setTimeout(() => {
+          btnElement.textContent = originalText;
+          btnElement.classList.remove("bg-stone-900", "text-white", "border-stone-900");
+          btnElement.classList.add("bg-white", "text-stone-700");
+        }, 2000);
+      }
+    };
+
+    // 5. GENERACIÓN DEL ARCHIVO .ICS Y ENLACE A GOOGLE CALENDAR
+    function initCalendarIntegration() {
+      // 17 de Abril 2027 de 13:00 a 20:00 (hora local Buenos Aires UTC-3)
+      // En formato UTC: 13:00 -03:00 = 16:00 UTC -> 20270417T160000Z a 20270417T230000Z
+      const startUtc = "20270417T160000Z";
+      const endUtc = "20270417T230000Z";
+      const title = encodeURIComponent("Boda Cami & Ricky");
+      const location = encodeURIComponent(EVENT_CONFIG.venue.address);
+      const details = encodeURIComponent("Celebración de la boda de Cami & Ricky.\nLugar: Quinta Querandí (Azcuénaga 1318, General Rodríguez).\nHorario: 13:00 a 20:00 hs (Recepción 13:00 hs, Ceremonia puntual 14:00 hs).");
+
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startUtc}/${endUtc}&details=${details}&location=${location}`;
+
+      const linkGoogleCalendar = document.getElementById("link-google-calendar");
+      if (linkGoogleCalendar) {
+        linkGoogleCalendar.href = gcalUrl;
+      }
+
+      const btnDownloadIcs = document.getElementById("btn-download-ics");
+      if (btnDownloadIcs) {
+        btnDownloadIcs.addEventListener("click", () => {
+          const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Cami & Ricky//Boda//ES",
+            "CALSCALE:GREGORIAN",
+            "METHOD:PUBLISH",
+            "BEGIN:VEVENT",
+            `UID:boda-cami-ricky-20270417@camiandricky.com`,
+            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+            `DTSTART:${startUtc}`,
+            `DTEND:${endUtc}`,
+            `SUMMARY:Boda Cami & Ricky`,
+            `DESCRIPTION:Celebración de la boda de Cami & Ricky en General Rodríguez. 13:00 a 20:00 hs. Ceremonia a las 14:00 hs.`,
+            `LOCATION:Azcuénaga 1318, General Rodríguez, Buenos Aires`,
+            "STATUS:CONFIRMED",
+            "END:VEVENT",
+            "END:VCALENDAR"
+          ].join("\r\n");
+
+          const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.setAttribute("download", "boda-cami-y-ricky.ics");
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        });
+      }
+
+      // Sincronizar cronograma completo en el celular (.ics)
+      const btnSyncScheduleIcs = document.getElementById("btn-sync-schedule-ics");
+      if (btnSyncScheduleIcs) {
+        btnSyncScheduleIcs.addEventListener("click", () => {
+          const detailedSchedule = [
+            "13:00 hs - Recepción",
+            "14:00 a 15:30 hs - Ceremonia",
+            "15:30 a 17:00 hs - Almuerzo Principal",
+            "17:00 a 17:30 hs - 1ª Tanda de Baile: Años 80 & 90",
+            "17:30 a 18:00 hs - Postre",
+            "18:00 a 18:30 hs - 2ª Tanda de Baile: Años 2000",
+            "18:30 a 19:00 hs - Mesa Dulce & Café",
+            "19:00 a 19:30 hs - 3ª Tanda de Baile: 2010 al Presente",
+            "19:30 a 20:00 hs - Brindis Final",
+            "20:00 hs - Fin del Evento"
+          ].join("\\n");
+
+          const icsFullContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Cami & Ricky//Cronograma Boda//ES",
+            "CALSCALE:GREGORIAN",
+            "METHOD:PUBLISH",
+            "BEGIN:VEVENT",
+            `UID:cronograma-boda-cami-ricky-20270417@camiandricky.com`,
+            `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+            `DTSTART:${startUtc}`,
+            `DTEND:${endUtc}`,
+            `SUMMARY:Cronograma Oficial · Boda Cami & Ricky`,
+            `DESCRIPTION:CRONOGRAMA DETALLADO:\\n${detailedSchedule}`,
+            `LOCATION:Azcuénaga 1318, General Rodríguez, Buenos Aires`,
+            "STATUS:CONFIRMED",
+            "END:VEVENT",
+            "END:VCALENDAR"
+          ].join("\r\n");
+
+          const blob = new Blob([icsFullContent], { type: "text/calendar;charset=utf-8" });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.setAttribute("download", "cronograma-boda-cami-y-ricky.ics");
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        });
+      }
+
+      // Agendar Dropdown Toggle
+      const btnAgendarToggle = document.getElementById("btn-agendar-toggle");
+      const agendarDropdown = document.getElementById("agendar-dropdown");
+      if (btnAgendarToggle && agendarDropdown) {
+        btnAgendarToggle.addEventListener("click", (e) => {
+          e.stopPropagation();
+          agendarDropdown.classList.toggle("hidden");
+        });
+        document.addEventListener("click", () => {
+          if (!agendarDropdown.classList.contains("hidden")) {
+            agendarDropdown.classList.add("hidden");
+          }
+        });
+      }
+    }
+
+    // 6. TABS DE DATOS BANCARIOS (PESOS / DÓLARES)
+    function initBankTabs() {
+      const tabArsBtn = document.getElementById("tab-ars-btn");
+      const tabUsdBtn = document.getElementById("tab-usd-btn");
+      const tabArsContent = document.getElementById("tab-ars-content");
+      const tabUsdContent = document.getElementById("tab-usd-content");
+
+      if (tabArsBtn && tabUsdBtn && tabArsContent && tabUsdContent) {
+        tabArsBtn.addEventListener("click", () => {
+          tabArsBtn.className = "px-3 py-1 rounded-md text-xs font-semibold bg-white text-stone-900 shadow-xs";
+          tabUsdBtn.className = "px-3 py-1 rounded-md text-xs font-medium text-stone-500 hover:text-stone-900";
+          tabArsContent.classList.remove("hidden");
+          tabUsdContent.classList.add("hidden");
+        });
+
+        tabUsdBtn.addEventListener("click", () => {
+          tabUsdBtn.className = "px-3 py-1 rounded-md text-xs font-semibold bg-white text-stone-900 shadow-xs";
+          tabArsBtn.className = "px-3 py-1 rounded-md text-xs font-medium text-stone-500 hover:text-stone-900";
+          tabUsdContent.classList.remove("hidden");
+          tabArsContent.classList.add("hidden");
+        });
+      }
+    }
+
+    // 7. CÁPSULA DEL TIEMPO / ÁLBUM COLABORATIVO (MÓDULO 7)
+    function initPhotoCapsule() {
+      const dropzone = document.getElementById("dropzone");
+      const fileInput = document.getElementById("photo-file-input");
+      const btnSelectFiles = document.getElementById("btn-select-files");
+      const previewContainer = document.getElementById("photo-preview-container");
+      const photoGrid = document.getElementById("photo-grid");
+      const photoCount = document.getElementById("photo-count");
+      const btnClearPhotos = document.getElementById("btn-clear-photos");
+      const btnSharedAlbum = document.getElementById("btn-shared-album");
+
+      if (btnSharedAlbum && EVENT_CONFIG.externalLinks.sharedAlbumUrl) {
+        btnSharedAlbum.href = EVENT_CONFIG.externalLinks.sharedAlbumUrl;
+      }
+
+      if (!dropzone || !fileInput) return;
+
+      let uploadedFiles = [];
+
+      btnSelectFiles?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        fileInput.click();
+      });
+
+      dropzone.addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      dropzone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropzone.classList.add("border-stone-900", "bg-[#FAF8F5]");
+      });
+
+      dropzone.addEventListener("dragleave", (e) => {
+        dropzone.classList.remove("border-stone-900", "bg-[#FAF8F5]");
+      });
+
+      dropzone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropzone.classList.remove("border-stone-900", "bg-[#FAF8F5]");
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+          handleFiles(e.dataTransfer.files);
+        }
+      });
+
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+          handleFiles(e.target.files);
+        }
+      });
+
+      function handleFiles(files) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          uploadedFiles.push(file);
+
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const card = document.createElement("div");
+            card.className = "relative aspect-square rounded-xl overflow-hidden bg-stone-100 border border-stone-200 group shadow-xs";
+            
+            if (file.type.startsWith("image/")) {
+              card.innerHTML = `
+                <img src="${event.target.result}" alt="${file.name}" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-stone-900/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-1">
+                  <span class="text-[9px] text-white font-medium truncate text-center">${file.name}</span>
+                </div>
+              `;
+            } else {
+              card.innerHTML = `
+                <div class="w-full h-full flex flex-col items-center justify-center p-2 text-stone-500 bg-stone-100">
+                  <svg class="w-5 h-5 mb-1 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span class="text-[8px] text-stone-700 truncate max-w-full text-center">${file.name}</span>
+                </div>
+              `;
+            }
+            photoGrid.appendChild(card);
+          };
+          reader.readAsDataURL(file);
+        }
+
+        if (photoCount) photoCount.textContent = uploadedFiles.length;
+        if (previewContainer) previewContainer.classList.remove("hidden");
+      }
+
+      btnClearPhotos?.addEventListener("click", () => {
+        uploadedFiles = [];
+        photoGrid.innerHTML = "";
+        if (photoCount) photoCount.textContent = "0";
+        if (previewContainer) previewContainer.classList.add("hidden");
+        fileInput.value = "";
+      });
+    }
+
+    // 8. INICIALIZACIÓN GENERAL AL CARGAR DOM
+    document.addEventListener("DOMContentLoaded", () => {
+      // Connect dynamic links from EVENT_CONFIG
+      const btnSaveTheDate = document.getElementById("btn-save-the-date");
+      if (btnSaveTheDate) btnSaveTheDate.href = EVENT_CONFIG.externalLinks.saveTheDateVideo;
+
+      const btnDownloadInvitation = document.getElementById("btn-download-invitation");
+      if (btnDownloadInvitation) btnDownloadInvitation.href = EVENT_CONFIG.externalLinks.invitationPdf;
+
+      const btnDownloadSchedule = document.getElementById("btn-download-schedule");
+      if (btnDownloadSchedule) btnDownloadSchedule.href = EVENT_CONFIG.externalLinks.schedulePdf;
+
+      const btnTableSheet = document.getElementById("btn-table-sheet");
+      if (btnTableSheet) btnTableSheet.href = EVENT_CONFIG.externalLinks.tableLayoutSheet;
+
+      const tableCards = document.querySelectorAll(".table-card");
+      tableCards.forEach(card => {
+        card.href = EVENT_CONFIG.externalLinks.tableLayoutSheet;
+      });
+
+      // Initialize components
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      initCalendarIntegration();
+      initBankTabs();
+      initPhotoCapsule();
+      applyTimeLocking();
+    });
+  </script>
+</body>
+</html>
