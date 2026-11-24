@@ -769,8 +769,8 @@
         busqueda: "Quinta Querandí, Azcuénaga 1318, B1748 Gral. Rodríguez, Provincia de Buenos Aires",
         // Coordenadas exactas para Uber (lat y lng del pin de la quinta). Si quedan en null,
         // el botón de Uber copia la dirección y abre la app.
-        lat: null,
-        lng: null
+        lat: -34.610689,
+        lng: -58.873565
       },
 
       // Link al video del save the date. Si se sube al proyecto, va en /public y se pone "/save-the-date.mp4".
@@ -1003,7 +1003,9 @@
       const dest = encodeURIComponent(L.busqueda);
       // Google Maps y Waze arman la ruta desde la ubicación actual del invitado
       $("#link-maps").href = `https://www.google.com/maps/dir/?api=1&destination=${dest}&travelmode=driving`;
-      $("#link-waze").href = `https://waze.com/ul?q=${dest}&navigate=yes`;
+      $("#link-waze").href = L.lat != null
+        ? `https://waze.com/ul?ll=${L.lat},${L.lng}&navigate=yes`
+        : `https://waze.com/ul?q=${dest}&navigate=yes`;
       const uber = $("#link-uber");
       if (L.lat != null && L.lng != null) {
         uber.href = "https://m.uber.com/ul/?action=setPickup&pickup=my_location"
@@ -1014,8 +1016,8 @@
         uber.addEventListener("click", () => { copiar(L.busqueda); toast("Dirección copiada: pegala como destino en Uber."); });
       }
       $("#btn-copy-address").addEventListener("click", async () => {
-        await copiar(L.direccion);
-        toast("Dirección copiada. Pegala en DiDi, Cabify o la app que uses.");
+        await copiar(L.busqueda);
+        toast("Dirección copiada. Abrí DiDi o Cabify y pegala como destino.");
       });
       setLink($("#btn-invitacion"), CONFIG.invitacionPdf, "Descargar invitación formal (PDF)");
     }
