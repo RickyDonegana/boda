@@ -8,6 +8,14 @@
   <meta property="og:title" content="Cami & Ricky · Nuestra boda" />
   <meta property="og:description" content="Sábado 17 de abril de 2027 · 13 a 20 hs · Quinta Querandí, General Rodríguez." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://camiyricky.vercel.app/" />
+  <meta property="og:image" content="https://camiyricky.vercel.app/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_AR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#FBF9F4" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -99,7 +107,7 @@
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       min-height: 48px; padding: 12px 22px; border-radius: var(--radius);
       font-family: var(--caps); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; text-decoration: none;
-      cursor: pointer; transition: background .2s, color .2s, border-color .2s; border: 1px solid var(--ink);
+      cursor: pointer; transition: background .2s, color .2s, border-color .2s; border: 1px solid var(--ink); text-align: center;
     }
     .btn svg { width: 16px; height: 16px; flex: none; }
     .btn-dark { background: var(--ink); color: #fff; }
@@ -318,7 +326,49 @@
       .floor { padding: 28px 40px; }
     }
 
+    /* ---------- Mejoras de experiencia ---------- */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .nav-desktop a.active { border-color: var(--ink); color: var(--ink); }
+    .nav-desktop a.locked, .mobile-menu a.locked { color: var(--soft); }
+    .mobile-menu a small { display: block; font-family: var(--caps); font-size: 10px; letter-spacing: .18em; color: var(--soft); text-align: center; }
+    .mobile-menu { animation: fadeIn .25s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 30px; text-decoration: none; color: var(--muted); }
+    .scroll-cue span.line { width: 1px; height: 36px; background: linear-gradient(var(--ink), transparent); animation: cue 2.2s ease-in-out infinite; transform-origin: top; }
+    @keyframes cue { 0% { transform: scaleY(0); opacity: 1; } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+
+    .cd-msg { font-family: var(--display); font-size: 30px; margin: 30px 0 4px; }
+
+    .video-wrap { position: relative; }
+    .play-btn {
+      position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+      background: linear-gradient(rgba(20,20,20,.05), rgba(20,20,20,.35)); border: 0; cursor: pointer; color: #fff;
+    }
+    .play-btn .circle { width: 76px; height: 76px; border-radius: 50%; border: 1px solid rgba(255,255,255,.9); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); background: rgba(255,255,255,.12); transition: transform .3s; }
+    .play-btn:hover .circle { transform: scale(1.06); }
+    .play-btn svg { width: 24px; height: 24px; margin-left: 4px; }
+    .play-btn .caps { color: #fff; font-size: 11px; }
+
+    .lock-card .faltan { display: inline-block; margin-top: 14px; padding: 6px 14px; border: 1px solid var(--line); font-family: var(--caps); font-size: 11px; letter-spacing: .18em; color: var(--ink-2); }
+
+    .success { text-align: center; padding: 10px 0; }
+    .success .tick { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .success .tick svg { width: 22px; height: 22px; }
+    .success h3 { font-family: var(--display); font-weight: 500; font-size: 28px; margin: 0 0 6px; }
+    .success p { margin: 0 0 18px; color: var(--muted); }
+    .link-btn { background: none; border: 0; padding: 6px; cursor: pointer; text-decoration: underline; color: var(--ink-2); font-size: 16px; }
+
+    .field.err input, .field.err .choice span { border-color: #B3261E; }
+    .field .err-msg { color: #B3261E; font-size: 14px; margin-top: 6px; display: none; }
+    .field.err .err-msg { display: block; }
+
+    .btn.copied { background: var(--ink); color: #fff; }
+
     @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .scroll-cue span.line { animation: none; }
       html { scroll-behavior: auto; }
       * { transition: none !important; }
     }
@@ -351,7 +401,7 @@
         <a href="#fotos">Fotos</a>
       </nav>
       <div class="header-actions">
-        <a href="#confirmar" class="btn btn-dark btn-small">Confirmar</a>
+        <a href="#confirmar" class="btn btn-dark btn-small" id="header-cta">Confirmar</a>
         <button class="menu-btn" id="btn-menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
         </button>
@@ -389,7 +439,8 @@
         <p class="date-line">Sábado 17 de abril de 2027</p>
         <p class="caps place-line">13 a 20 hs · Quinta Querandí · General Rodríguez</p>
 
-        <div class="countdown" aria-label="Cuenta regresiva">
+        <p class="cd-msg hidden" id="cd-msg"></p>
+        <div class="countdown" id="countdown" aria-label="Cuenta regresiva">
           <div><span class="n" id="cd-days">–</span><span class="l">Días</span></div>
           <div><span class="n" id="cd-hours">–</span><span class="l">Horas</span></div>
           <div><span class="n" id="cd-minutes">–</span><span class="l">Min</span></div>
@@ -418,6 +469,10 @@
           </a>
         </div>
       </div>
+      <a href="#save-the-date" class="scroll-cue" aria-label="Seguir bajando">
+        <span class="caps" style="font-size:10px">Deslizá</span>
+        <span class="line"></span>
+      </a>
     </section>
 
     <!-- Video del save the date -->
@@ -430,7 +485,13 @@
         <p class="hint" id="std-pending" style="margin-top:14px">El video se suma muy pronto.</p>
       </div>
       <div class="std-video" id="std-video-box">
-        <video id="std-video" controls playsinline preload="none"></video>
+        <div class="video-wrap">
+          <video id="std-video" playsinline preload="none"></video>
+          <button type="button" class="play-btn" id="btn-play" aria-label="Reproducir el save the date">
+            <span class="circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></span>
+            <span class="caps">Dale play</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -511,11 +572,20 @@
 
         <div class="module-content">
           <div class="card framed" style="max-width:600px;margin:0 auto">
-            <p class="center" style="margin-top:0">Por favor, confirmá antes del <strong id="rsvp-deadline">17 de marzo de 2027</strong>.</p>
+            <div id="rsvp-ok" class="success hidden" role="status">
+              <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></div>
+              <h3 id="rsvp-ok-title">¡Gracias!</h3>
+              <p id="rsvp-ok-text"></p>
+              <button type="button" class="link-btn" id="rsvp-otra">Confirmar por otra persona</button>
+            </div>
+            <div id="rsvp-box">
+            <p class="center" style="margin-top:0">Por favor, confirmá antes del <strong id="rsvp-deadline">17 de febrero de 2027</strong>.</p>
+            <p class="hint center" style="margin:-6px 0 18px">Para esta celebración, los únicos niños invitados son los de la familia. Gracias por entenderlo y acompañarnos.</p>
             <form id="form-rsvp" novalidate>
               <div class="field">
                 <label for="rsvp-nombre">Nombre y apellido</label>
                 <input type="text" id="rsvp-nombre" name="nombre" autocomplete="name" required />
+                <p class="err-msg">Escribí tu nombre y apellido.</p>
               </div>
               <div class="field">
                 <span class="label">¿Vas a venir?</span>
@@ -523,6 +593,7 @@
                   <label class="choice"><input type="radio" name="asiste" value="Sí" required /><span>¡Sí, ahí voy a estar!</span></label>
                   <label class="choice"><input type="radio" name="asiste" value="No" /><span>No voy a poder ir</span></label>
                 </div>
+                <p class="err-msg">Contanos si vas a venir.</p>
               </div>
               <div class="field">
                 <label for="rsvp-acomp">¿Confirmás por alguien más de tu invitación?</label>
@@ -545,6 +616,7 @@
               <button type="submit" class="btn btn-dark btn-block" style="margin-top:22px">Enviar confirmación</button>
               <div id="rsvp-msg" class="form-msg hidden" role="status"></div>
             </form>
+            </div>
           </div>
         </div>
       </div>
@@ -614,6 +686,13 @@
             </div>
 
             <div class="card framed">
+              <div id="regalo-ok" class="success hidden" role="status">
+                <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></div>
+                <h3>¡Muchas gracias!</h3>
+                <p>Recibimos tu comprobante. No sabés cuánto lo valoramos.</p>
+                <button type="button" class="link-btn" id="regalo-otro">Enviar otro comprobante</button>
+              </div>
+              <div id="regalo-box">
               <p class="caps muted" style="margin:0">¿Ya hiciste tu regalo?</p>
               <p class="hint" style="margin:6px 0 16px">Subí el comprobante así podemos agradecerte. Lo vemos solo nosotros.</p>
               <form id="form-regalo" novalidate>
@@ -647,6 +726,7 @@
                 <button type="submit" class="btn btn-dark btn-block" style="margin-top:20px">Enviar comprobante</button>
                 <div id="regalo-msg" class="form-msg hidden" role="status"></div>
               </form>
+              </div>
             </div>
           </div>
         </div>
@@ -915,14 +995,56 @@
           if (!lock) {
             lock = document.createElement("div");
             lock.className = "card framed lock-card";
+            const dias = Math.ceil((abre - ahora) / 864e5);
             lock.innerHTML = `
               <div class="lock-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
               <h3>Se revela el ${fechaLarga(iso)}</h3>
-              <p>Volvé a visitarnos: a medida que se acerque el gran día vamos a ir compartiendo más.</p>`;
+              <p>Volvé a visitarnos: a medida que se acerque el gran día vamos a ir compartiendo más.</p>
+              <span class="faltan">${dias === 1 ? "Falta 1 día" : "Faltan " + dias + " días"}</span>`;
             $(".wrap", sec).appendChild(lock);
+            observarReveal(lock);
           }
         }
+        // Menú: marcar secciones bloqueadas
+        $$(`a[href="#${sec.id}"]`).forEach(a => {
+          if (a.closest(".nav-desktop") || a.closest(".mobile-menu")) {
+            a.classList.toggle("locked", !abierto);
+            const small = $("small", a);
+            if (a.closest(".mobile-menu")) {
+              if (!abierto && !small) a.insertAdjacentHTML("beforeend", `<small>Se revela el ${iso.slice(8,10)}/${iso.slice(5,7)}</small>`);
+              if (abierto && small) small.remove();
+            }
+          }
+        });
       });
+      // Botón del encabezado: confirmar si ya se puede, si no, ver el save the date
+      const rsvpAbierto = !$("#confirmar .lock-card");
+      const cta = $("#header-cta");
+      cta.textContent = rsvpAbierto ? "Confirmar" : "Save the date";
+      cta.href = rsvpAbierto ? "#confirmar" : "#save-the-date";
+    }
+
+    /* Aparición suave de las secciones al bajar */
+    const revealObs = "IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); revealObs.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" })
+      : null;
+    function observarReveal(el) {
+      if (!revealObs || !el) return;
+      el.classList.add("reveal");
+      revealObs.observe(el);
+    }
+    function initReveal() {
+      $$(".sec-head, .module-content > *, .std-text, .std-video, footer > *").forEach(observarReveal);
+    }
+
+    /* Sección activa en el menú */
+    function initScrollSpy() {
+      if (!("IntersectionObserver" in window)) return;
+      const links = $$(".nav-desktop a");
+      const obs = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+      }), { rootMargin: "-45% 0px -50% 0px" });
+      $$("main section[id]").forEach(s => obs.observe(s));
     }
 
     function initVistaPrevia() {
@@ -939,9 +1061,17 @@
        CUENTA REGRESIVA
        ===================================================================== */
     function cuentaRegresiva() {
-      const diff = new Date(CONFIG.inicio).getTime() - Date.now();
+      const ahora = Date.now();
+      const diff = new Date(CONFIG.inicio).getTime() - ahora;
       const set = (id, v) => { $(id).textContent = v; };
-      if (diff <= 0) { set("#cd-days", "0"); set("#cd-hours", "00"); set("#cd-minutes", "00"); set("#cd-seconds", "00"); return; }
+      if (diff <= 0) {
+        const termino = ahora > new Date(CONFIG.fin).getTime();
+        $("#countdown").classList.add("hidden");
+        const m = $("#cd-msg");
+        m.textContent = termino ? "¡Gracias por acompañarnos!" : "¡Hoy es el gran día!";
+        m.classList.remove("hidden");
+        return;
+      }
       set("#cd-days", Math.floor(diff / 864e5));
       set("#cd-hours", String(Math.floor(diff / 36e5) % 24).padStart(2, "0"));
       set("#cd-minutes", String(Math.floor(diff / 6e4) % 60).padStart(2, "0"));
@@ -1008,6 +1138,14 @@
       if (CONFIG.videoSaveTheDate) {
         v.src = CONFIG.videoSaveTheDate;
         if (CONFIG.posterSaveTheDate) v.poster = CONFIG.posterSaveTheDate;
+        const play = $("#btn-play");
+        play.addEventListener("click", () => {
+          v.controls = true;
+          play.classList.add("hidden");
+          const p = v.play();
+          if (p && p.catch) p.catch(() => {});
+        });
+        $("#btn-ver-std").addEventListener("click", () => setTimeout(() => play.focus({ preventScroll: true }), 600));
         $("#std-pending").classList.add("hidden");
         $("#save-the-date").classList.add("has-video");
       } else {
@@ -1069,19 +1207,44 @@
     function initRsvp() {
       $("#rsvp-deadline").textContent = CONFIG.fechaLimiteConfirmacion;
       const form = $("#form-rsvp"), msg = $("#rsvp-msg");
+      const box = $("#rsvp-box"), ok = $("#rsvp-ok");
+      const mostrarGracias = (nombre, asiste) => {
+        const primer = String(nombre).split(" ")[0];
+        $("#rsvp-ok-title").textContent = asiste === "Sí" ? `¡Gracias, ${primer}!` : `Gracias, ${primer}`;
+        $("#rsvp-ok-text").textContent = asiste === "Sí"
+          ? "Recibimos tu confirmación. ¡Te esperamos el 17 de abril!"
+          : "Gracias por avisarnos. Te vamos a extrañar.";
+        box.classList.add("hidden"); ok.classList.remove("hidden");
+      };
+      // Si ya confirmó desde este celular, se lo recordamos
+      try {
+        const prev = JSON.parse(localStorage.getItem("rsvp-cami-ricky") || "null");
+        if (prev && prev.nombre) mostrarGracias(prev.nombre, prev.asiste);
+      } catch (e) {}
+      $("#rsvp-otra").addEventListener("click", () => {
+        ok.classList.add("hidden"); box.classList.remove("hidden"); msg.classList.add("hidden");
+        $("#rsvp-nombre").focus();
+      });
+      const marcar = (campo, mal) => campo.closest(".field").classList.toggle("err", mal);
+      form.addEventListener("input", e => { const f = e.target.closest(".field"); f && f.classList.remove("err"); });
       form.addEventListener("submit", async e => {
         e.preventDefault();
         const fd = new FormData(form);
         const nombre = (fd.get("nombre") || "").trim();
         const asiste = fd.get("asiste");
-        if (!nombre || !asiste) { mostrarMsg(msg, "Completá tu nombre y si vas a venir."); return; }
+        marcar($("#rsvp-nombre"), !nombre);
+        marcar($("input[name=asiste]", form), !asiste);
+        if (!nombre || !asiste) { $(".field.err input", form)?.focus(); return; }
         if (!CONFIG.appsScriptUrl) { mostrarMsg(msg, "La confirmación online se habilita muy pronto. ¡Gracias por la paciencia!"); return; }
         const btn = $("button[type=submit]", form);
         btn.disabled = true; btn.textContent = "Enviando…";
         try {
           await enviar({ tipo: "confirmacion", nombre, asiste, acompanantes: fd.get("acompanantes"), menu: fd.get("menu"), mensaje: fd.get("mensaje") });
           form.reset();
-          mostrarMsg(msg, asiste === "Sí" ? "¡Gracias! Recibimos tu confirmación. ¡Te esperamos!" : "Gracias por avisarnos. Te vamos a extrañar.", true);
+          msg.classList.add("hidden");
+          try { localStorage.setItem("rsvp-cami-ricky", JSON.stringify({ nombre, asiste })); } catch (e) {}
+          mostrarGracias(nombre, asiste);
+          $("#confirmar").scrollIntoView({ behavior: "smooth", block: "start" });
         } catch (err) {
           mostrarMsg(msg, "No pudimos enviar tu confirmación. Probá de nuevo en un rato.");
         } finally {
@@ -1131,7 +1294,8 @@
       $$("[data-copy]").forEach(btn => btn.addEventListener("click", async () => {
         const [m, k] = btn.dataset.copy.split(".");
         await copiar(CONFIG.cuentas[m][k]);
-        toast("Copiado");
+        btn.textContent = "Copiado ✓"; btn.classList.add("copied");
+        setTimeout(() => { btn.textContent = "Copiar"; btn.classList.remove("copied"); }, 1800);
       }));
 
       // Pestañas
@@ -1164,6 +1328,7 @@
         $("#reg-archivo-nombre").textContent = f ? f.name : "Ningún archivo elegido";
       });
       form.addEventListener("reset", () => { $("#reg-archivo-nombre").textContent = "Ningún archivo elegido"; });
+      $("#regalo-otro").addEventListener("click", () => { $("#regalo-ok").classList.add("hidden"); $("#regalo-box").classList.remove("hidden"); });
       form.addEventListener("submit", async e => {
         e.preventDefault();
         const fd = new FormData(form);
@@ -1180,7 +1345,9 @@
           await enviar({ tipo: "regalo", nombre, moneda: fd.get("moneda"), monto, mensaje: fd.get("mensaje"),
                          archivo: { nombre: archivo.name, tipo: archivo.type, base64 } });
           form.reset();
-          mostrarMsg(msg, "¡Muchas gracias! Recibimos tu comprobante. No sabés cuánto lo valoramos.", true);
+          msg.classList.add("hidden");
+          $("#regalo-box").classList.add("hidden");
+          $("#regalo-ok").classList.remove("hidden");
         } catch (err) {
           mostrarMsg(msg, "No pudimos enviar el comprobante. Probá de nuevo en un rato.");
         } finally {
@@ -1276,7 +1443,9 @@
       initFotos();
       initContactos();
       initMenu();
+      initReveal();
       aplicarBloqueos();
+      initScrollSpy();
     });
   </script>
 </body>
