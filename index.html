@@ -460,7 +460,7 @@
             </button>
             <div id="agendar-menu" class="agendar-menu hidden">
               <a id="link-google-calendar" href="#" target="_blank" rel="noopener">Google Calendar (Android)</a>
-              <button id="btn-ics" type="button">iPhone, Outlook y otros (.ics)</button>
+              <a id="link-ics" href="/boda.ics">iPhone y otros calendarios</a>
             </div>
           </div>
           <a href="#save-the-date" class="btn btn-light btn-block" id="btn-ver-std">
@@ -481,7 +481,7 @@
         <p class="caps muted">Save the date</p>
         <h2>Guardá la fecha</h2>
         <div class="ornament" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg></div>
-        <p class="phrase" style="margin:0">Hay días que se esperan toda una vida. Este es uno de ellos, y no lo imaginamos sin vos.</p>
+        <p class="phrase" style="margin:0 auto">Hay días que se esperan toda una vida. Este es uno de ellos, y no lo imaginamos sin vos.</p>
         <p class="hint" id="std-pending" style="margin-top:14px">El video se suma muy pronto.</p>
       </div>
       <div class="std-video" id="std-video-box">
@@ -680,7 +680,7 @@
                 <div class="data-row"><div><span class="k">Alias · Mercado Pago dólares</span><span class="v mono" data-bank="usd.alias"></span></div><button type="button" class="btn btn-light btn-small" data-copy="usd.alias">Copiar</button></div>
                 <div class="data-row"><div><span class="k">CBU en dólares</span><span class="v mono" data-bank="usd.cbu"></span></div><button type="button" class="btn btn-light btn-small" data-copy="usd.cbu">Copiar</button></div>
                 <div class="data-row"><div><span class="k">Titular</span><span class="v" data-bank="usd.titular"></span></div></div>
-                <button type="button" id="btn-open-mp-usd" class="btn btn-dark btn-block" style="margin-top:18px">Copiar alias y abrir Mercado Pago</button>
+                <a id="btn-open-mp-usd" href="https://www.mercadopago.com.ar/" target="_blank" rel="noopener" class="btn btn-dark btn-block" style="margin-top:18px">Copiar alias y abrir Mercado Pago</a>
                 <p class="hint center">Al transferir vas a ver como destino al Banco Industrial (BIND). Es correcto.</p>
               </div>
             </div>
@@ -748,7 +748,11 @@
           <div class="card framed" style="max-width:620px;margin:0 auto">
             <ol class="timeline" id="timeline"></ol>
             <div class="center" style="margin-top:28px">
-              <button type="button" id="btn-ics-cronograma" class="btn btn-light">Guardar el cronograma en el celular</button>
+              <a href="/cronograma.ics" id="link-ics-cronograma" class="btn btn-dark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22a2 2 0 002-2h-4a2 2 0 002 2zM18 16V11a6 6 0 00-5-5.9V4a1 1 0 00-2 0v1.1A6 6 0 006 11v5l-2 2h16z"/></svg>
+                Guardar el cronograma con alarmas
+              </a>
+              <p class="hint" style="max-width:440px;margin:12px auto 0">Cada momento del día te avisa a la hora justa, y además te recordamos una semana, un día y una hora antes. En iPhone tocá «Agregar todo».</p>
             </div>
           </div>
         </div>
@@ -1083,27 +1087,6 @@
        ===================================================================== */
     const utc = iso => new Date(iso).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
-    function descargarIcs(nombre, titulo, descripcion, uid) {
-      const ics = [
-        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Cami y Ricky//Boda//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
-        "BEGIN:VEVENT",
-        `UID:${uid}`,
-        `DTSTAMP:${utc(new Date().toISOString())}`,
-        `DTSTART:${utc(CONFIG.inicio)}`,
-        `DTEND:${utc(CONFIG.fin)}`,
-        `SUMMARY:${titulo}`,
-        `DESCRIPTION:${descripcion}`,
-        `LOCATION:${CONFIG.lugar.nombre}\\, ${CONFIG.lugar.direccion.replace(/,/g, "\\,")}`,
-        "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", "DESCRIPTION:Mañana es la boda de Cami y Ricky", "END:VALARM",
-        "END:VEVENT", "END:VCALENDAR"
-      ].join("\r\n");
-      const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
-      const a = document.createElement("a");
-      a.href = url; a.download = nombre;
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }
-
     function initAgendar() {
       const det = "¡Nos casamos! Ceremonia a las 14 hs. Toda la info en la página de la boda.";
       const gcal = "https://calendar.google.com/calendar/render?action=TEMPLATE"
@@ -1121,13 +1104,7 @@
       });
       document.addEventListener("click", () => { menu.classList.add("hidden"); btn.setAttribute("aria-expanded", "false"); });
 
-      $("#btn-ics").addEventListener("click", () =>
-        descargarIcs("boda-cami-y-ricky.ics", "Boda de Cami y Ricky", "¡Nos casamos! Ceremonia a las 14 hs.", "boda-cami-ricky-20270417@boda"));
-
-      $("#btn-ics-cronograma").addEventListener("click", () => {
-        const desc = CONFIG.cronograma.map(c => `${c.hora} hs · ${c.que}${c.sub ? " (" + c.sub + ")" : ""}`).join("\\n");
-        descargarIcs("cronograma-boda-cami-y-ricky.ics", "Boda de Cami y Ricky · Cronograma", desc, "cronograma-cami-ricky-20270417@boda");
-      });
+      // Los archivos .ics (con alarmas) se generan con scripts/generar-calendarios.py y viven en /public
     }
 
     /* =====================================================================
@@ -1311,14 +1288,10 @@
       setLink($("#link-mp-ars"), CONFIG.cuentas.ars.linkPago);
 
       // Dólares: copiar alias y abrir Mercado Pago
-      $("#btn-open-mp-usd").addEventListener("click", async () => {
-        await copiar(CONFIG.cuentas.usd.alias);
-        if (esMovil()) {
-          toast("Alias copiado. Abriendo Mercado Pago…");
-          setTimeout(() => { location.href = "mercadopago://"; }, 500);
-        } else {
-          toast("Alias copiado. Abrí Mercado Pago en tu celular y pegalo en «Transferir».");
-        }
+      // El link a mercadopago.com.ar abre la app si está instalada (y la web si no).
+      $("#btn-open-mp-usd").addEventListener("click", () => {
+        copiar(CONFIG.cuentas.usd.alias);
+        toast("Alias copiado. En Mercado Pago tocá «Transferir» y pegalo.");
       });
 
       // Comprobante

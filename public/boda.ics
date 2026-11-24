@@ -1,0 +1,35 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cami y Ricky//Boda//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Boda de Cami y Ricky
+X-WR-TIMEZONE:America/Argentina/Buenos_Aires
+BEGIN:VEVENT
+UID:boda-cami-ricky-20270417@camiyricky
+DTSTAMP:20261124T180055Z
+DTSTART:20270417T160000Z
+DTEND:20270417T230000Z
+SUMMARY:Boda de Cami y Ricky
+DESCRIPTION:¡Nos casamos! Recepción 13 hs\, ceremonia 14 hs puntual.\nTod
+ a la info: https://camiyricky.vercel.app
+LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
+ ires
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-P7D
+ACTION:DISPLAY
+DESCRIPTION:En una semana es la boda de Cami y Ricky
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Mañana es la boda de Cami y Ricky
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:En una hora empieza la boda de Cami y Ricky
+END:VALARM
+END:VEVENT
+END:VCALENDAR
