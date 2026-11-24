@@ -372,6 +372,7 @@
     <a href="#mesas">Mesas</a>
     <a href="#musica">Música</a>
     <a href="#fotos">Fotos del día</a>
+    <a href="#consultas">Consultas</a>
   </div>
 
   <main>
@@ -742,6 +743,20 @@
       </div>
     </section>
 
+    <!-- =====================================================================
+         CONSULTAS (siempre visible)
+         ===================================================================== -->
+    <section id="consultas" class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 class="sec-title">¿Dudas o consultas?</h2>
+          <div class="ornament" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg></div>
+          <p class="phrase">Si necesitás algo, escribiles a quienes nos acompañan en la organización. Te van a ayudar con mucho cariño.</p>
+        </div>
+        <div class="grid-2" id="contactos" style="max-width:680px;margin:0 auto"></div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -824,7 +839,13 @@
       fotosPreboda: [],
 
       // Álbum compartido (Google Fotos) para el día de la boda
-      albumUrl: ""
+      albumUrl: "",
+
+      // Contactos para consultas (WhatsApp, número en formato internacional sin + ni espacios)
+      contactos: [
+        { nombre: "Flavia Poggio", telefono: "+54 9 11 3056-3105", whatsapp: "5491130563105" },
+        { nombre: "Ariel Poggio", telefono: "+54 9 11 3459-8264", whatsapp: "5491134598264" }
+      ]
     };
 
     /* =====================================================================
@@ -1208,6 +1229,23 @@
 
     function initFotos() { setLink($("#btn-album"), CONFIG.albumUrl); }
 
+    function initContactos() {
+      $("#contactos").innerHTML = CONFIG.contactos.map(c => {
+        const nombre = c.nombre.split(" ")[0];
+        const texto = encodeURIComponent(`Hola ${nombre}, te escribo por la boda de Cami y Ricky.`);
+        return `
+        <div class="card framed center">
+          <p class="caps muted" style="margin:0">Consultas</p>
+          <p class="display" style="font-size:26px;margin:6px 0 2px">${c.nombre}</p>
+          <p class="hint" style="margin:0 0 16px">${c.telefono}</p>
+          <a class="btn btn-dark btn-block" href="https://wa.me/${c.whatsapp}?text=${texto}" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 01-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 000-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 001.8-1.3 2.2 2.2 0 00.2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+            Escribir por WhatsApp
+          </a>
+        </div>`;
+      }).join("");
+    }
+
     /* =====================================================================
        MENÚ
        ===================================================================== */
@@ -1236,6 +1274,7 @@
       initMusica();
       initPreboda();
       initFotos();
+      initContactos();
       initMenu();
       aplicarBloqueos();
     });
