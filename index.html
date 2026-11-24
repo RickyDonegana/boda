@@ -599,15 +599,16 @@
                 <div class="data-row"><div><span class="k">Alias · Mercado Pago</span><span class="v mono" data-bank="ars.alias"></span></div><button type="button" class="btn btn-light btn-small" data-copy="ars.alias">Copiar</button></div>
                 <div class="data-row"><div><span class="k">CVU</span><span class="v mono" data-bank="ars.cvu"></span></div><button type="button" class="btn btn-light btn-small" data-copy="ars.cvu">Copiar</button></div>
                 <div class="data-row"><div><span class="k">Titular</span><span class="v" data-bank="ars.titular"></span></div></div>
-                <button type="button" id="btn-open-mp" class="btn btn-dark btn-block" style="margin-top:18px">Copiar alias y abrir Mercado Pago</button>
-                <p class="hint center">Se copia el alias: en la app tocá «Transferir» y pegalo.</p>
+                <a id="link-mp-ars" class="btn btn-dark btn-block" style="margin-top:18px" target="_blank" rel="noopener">Transferir con Mercado Pago</a>
+                <p class="hint center">Se abre Mercado Pago con nuestros datos ya cargados.</p>
               </div>
 
               <div id="panel-usd" role="tabpanel" aria-labelledby="tab-usd" class="hidden">
-                <div class="data-row"><div><span class="k">Alias · Banco Industrial (BIND)</span><span class="v mono" data-bank="usd.alias"></span></div><button type="button" class="btn btn-light btn-small" data-copy="usd.alias">Copiar</button></div>
+                <div class="data-row"><div><span class="k">Alias · Mercado Pago dólares</span><span class="v mono" data-bank="usd.alias"></span></div><button type="button" class="btn btn-light btn-small" data-copy="usd.alias">Copiar</button></div>
                 <div class="data-row"><div><span class="k">CBU en dólares</span><span class="v mono" data-bank="usd.cbu"></span></div><button type="button" class="btn btn-light btn-small" data-copy="usd.cbu">Copiar</button></div>
                 <div class="data-row"><div><span class="k">Titular</span><span class="v" data-bank="usd.titular"></span></div></div>
-                <p class="hint center" style="margin-top:14px">Transferí desde tu homebanking o app de tu banco a esta cuenta en dólares.</p>
+                <button type="button" id="btn-open-mp-usd" class="btn btn-dark btn-block" style="margin-top:18px">Copiar alias y abrir Mercado Pago</button>
+                <p class="hint center">Al transferir vas a ver como destino al Banco Industrial (BIND). Es correcto.</p>
               </div>
             </div>
 
@@ -764,9 +765,12 @@
       lugar: {
         nombre: "Quinta Querandí",
         direccion: "Azcuénaga 1318, General Rodríguez, Buenos Aires",
-        // Coordenadas del lugar (para Uber). Verificar con el pin real de la quinta.
-        lat: -34.610732,
-        lng: -58.873436
+        // Cómo encuentra Google Maps / Waze la quinta
+        busqueda: "Quinta Querandí, Azcuénaga 1318, B1748 Gral. Rodríguez, Provincia de Buenos Aires",
+        // Coordenadas exactas para Uber (lat y lng del pin de la quinta). Si quedan en null,
+        // el botón de Uber copia la dirección y abre la app.
+        lat: null,
+        lng: null
       },
 
       // Link al video del save the date. Si se sube al proyecto, va en /public y se pone "/save-the-date.mp4".
@@ -777,7 +781,7 @@
       invitacionPdf: "",
 
       // Fecha límite para confirmar (texto)
-      fechaLimiteConfirmacion: "17 de marzo de 2027",
+      fechaLimiteConfirmacion: "17 de febrero de 2027",
 
       // URL de la aplicación web de Google Apps Script (ver apps-script/LEEME.md).
       // Mientras esté vacía, los formularios muestran un aviso en lugar de enviar.
@@ -790,8 +794,9 @@
       },
 
       cuentas: {
-        ars: { alias: "rickydonegana.mp", cvu: "0000003100062113507784", titular: "Ricardo Atilio Donegana Gutierrez" },
-        usd: { alias: "atenuar.matizaba.pez", cbu: "3220001888045913350017", titular: "Ricardo Atilio Donegana Gutierrez" }
+        ars: { alias: "rickydonegana.mp", cvu: "0000003100062113507784", titular: "Ricardo Atilio Donegana Gutierrez",
+               linkPago: "https://mpago.la/1YxHfAo" },
+        usd: { alias: "rickydonegana.usd.mp", cbu: "3220001888045913350017", titular: "Ricardo Atilio Donegana Gutierrez" }
       },
 
       cronograma: [
@@ -995,13 +1000,19 @@
        ===================================================================== */
     function initUbicacion() {
       const L = CONFIG.lugar;
-      const dest = encodeURIComponent(L.direccion);
+      const dest = encodeURIComponent(L.busqueda);
       // Google Maps y Waze arman la ruta desde la ubicación actual del invitado
       $("#link-maps").href = `https://www.google.com/maps/dir/?api=1&destination=${dest}&travelmode=driving`;
       $("#link-waze").href = `https://waze.com/ul?q=${dest}&navigate=yes`;
-      $("#link-uber").href = "https://m.uber.com/ul/?action=setPickup&pickup=my_location"
-        + `&dropoff[latitude]=${L.lat}&dropoff[longitude]=${L.lng}`
-        + `&dropoff[nickname]=${encodeURIComponent(L.nombre)}&dropoff[formatted_address]=${dest}`;
+      const uber = $("#link-uber");
+      if (L.lat != null && L.lng != null) {
+        uber.href = "https://m.uber.com/ul/?action=setPickup&pickup=my_location"
+          + `&dropoff[latitude]=${L.lat}&dropoff[longitude]=${L.lng}`
+          + `&dropoff[nickname]=${encodeURIComponent(L.nombre)}&dropoff[formatted_address]=${encodeURIComponent(L.direccion)}`;
+      } else {
+        uber.href = "https://m.uber.com/ul/?action=setPickup&pickup=my_location";
+        uber.addEventListener("click", () => { copiar(L.busqueda); toast("Dirección copiada: pegala como destino en Uber."); });
+      }
       $("#btn-copy-address").addEventListener("click", async () => {
         await copiar(L.direccion);
         toast("Dirección copiada. Pegala en DiDi, Cabify o la app que uses.");
@@ -1109,9 +1120,12 @@
         });
       }));
 
-      // Copiar alias y abrir Mercado Pago
-      $("#btn-open-mp").addEventListener("click", async () => {
-        await copiar(CONFIG.cuentas.ars.alias);
+      // Pesos: link de pago de Mercado Pago (abre la app con los datos cargados)
+      setLink($("#link-mp-ars"), CONFIG.cuentas.ars.linkPago);
+
+      // Dólares: copiar alias y abrir Mercado Pago
+      $("#btn-open-mp-usd").addEventListener("click", async () => {
+        await copiar(CONFIG.cuentas.usd.alias);
         if (esMovil()) {
           toast("Alias copiado. Abriendo Mercado Pago…");
           setTimeout(() => { location.href = "mercadopago://"; }, 500);
