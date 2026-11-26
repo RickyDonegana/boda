@@ -146,7 +146,7 @@
     .phrase cite { display: block; margin-top: 8px; font-style: normal; font-family: var(--caps); font-size: 11px; letter-spacing: .2em; color: var(--soft); }
 
     /* ---------- Portada ---------- */
-    .hero { padding: 28px 14px 56px; }
+    .hero { padding: 28px 20px 56px; }
     .hero-card {
       max-width: 720px; margin: 0 auto; background: var(--card); border: 1px solid var(--ink);
       padding: 48px 22px 40px; text-align: center; position: relative;
@@ -392,6 +392,79 @@
     .add-persona svg { width: 16px; height: 16px; }
     @media (max-width: 420px) { .persona .row-2 { grid-template-columns: minmax(0,1fr); } .persona .row-2 .field + .field { margin-top: 16px; } }
 
+
+    /* =====================================================================
+       PULIDO VISUAL · mismo ancho para todas las secciones y formularios
+       ===================================================================== */
+    :root { --content: 840px; }
+    .wrap { max-width: calc(var(--content) + 40px); }
+    .hero-card { max-width: var(--content); }
+    .std { max-width: calc(var(--content) + 40px); }
+    .std-video { max-width: 100%; }
+    .sec-head { margin-bottom: 40px; }
+    .grid-2 { gap: 24px; }
+    .card { border-radius: 3px; }
+    .hint { font-size: 15px; line-height: 1.5; }
+
+    /* Etiquetas */
+    .field label, .field .label {
+      font-family: var(--caps); font-size: 10.5px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .field + .field { margin-top: 18px; }
+
+    /* Campos */
+    .field input[type=text], .field input[type=tel], .field input[type=number], .field select, .field textarea {
+      width: 100%; min-height: 50px; padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-radius: 3px;
+      font-family: var(--body); font-size: 17px; color: var(--ink); transition: border-color .2s, box-shadow .2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field textarea { min-height: 96px; line-height: 1.5; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--soft); font-style: italic; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(20,20,20,.07); background: #fff;
+    }
+    .field select {
+      padding-right: 42px; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23141414' stroke-width='1.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; background-size: 16px;
+    }
+    .field.err input, .field.err select, .field.err .choice span { border-color: #B3261E; box-shadow: none; }
+    .field .err-msg { font-size: 14px; }
+
+    /* Opciones (sí / no, pesos / dólares) */
+    .choice span {
+      gap: 10px; min-height: 50px; padding: 10px 12px; background: #fff; border: 1px solid var(--line); border-radius: 3px;
+      font-family: var(--body); font-size: 16px; transition: background .2s, color .2s, border-color .2s;
+    }
+    .choice span::before {
+      content: ""; flex: none; width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--soft); background: #fff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .choice:hover span { border-color: var(--ink); }
+    .choice input:checked + span { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .choice input:checked + span::before { border-color: #fff; background: var(--ink); box-shadow: inset 0 0 0 3px var(--ink), inset 0 0 0 7px #fff; }
+
+    /* Personas de la confirmación */
+    .persona { background: var(--paper); border: 1px solid var(--line-2); border-radius: 3px; padding: 22px 18px 10px; margin: 0 0 18px; }
+    .persona legend { font-size: 10.5px; letter-spacing: .22em; color: var(--ink); background: var(--paper); padding: 2px 10px; border: 1px solid var(--line-2); }
+    .persona .quitar { border-radius: 3px; font-family: var(--caps); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; padding: 4px 10px; }
+    .persona .row-2 + .field { margin-top: 18px; }
+    .add-persona {
+      min-height: 50px; border-radius: 3px; border: 1px dashed var(--soft); background: transparent;
+      font-family: var(--caps); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    }
+
+    /* Mensajes y botones */
+    .form-msg { border-radius: 3px; font-size: 15px; }
+    .btn { border-radius: 3px; }
+    .file-pick .btn { min-height: 42px; }
+
+    @media (min-width: 700px) {
+      .card { padding: 44px 48px; }
+      .persona { padding: 24px 22px 12px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; }
       .scroll-cue span.line { animation: none; }
@@ -597,7 +670,7 @@
         </div>
 
         <div class="module-content">
-          <div class="card framed" style="max-width:600px;margin:0 auto">
+          <div class="card framed">
             <div id="rsvp-ok" class="success hidden" role="status">
               <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></div>
               <h3 id="rsvp-ok-title">¡Gracias!</h3>
@@ -614,10 +687,6 @@
                 Agregar a otra persona de tu invitación
               </button>
               <div class="field" style="margin-top:22px">
-                <label for="rsvp-restricciones">¿Alguien tiene alguna restricción alimentaria?</label>
-                <input type="text" id="rsvp-restricciones" name="restricciones" placeholder="Ej: celíaco, vegetariano (opcional)" />
-              </div>
-              <div class="field">
                 <label for="rsvp-mensaje">Un mensaje para los novios</label>
                 <textarea id="rsvp-mensaje" name="mensaje" placeholder="Opcional"></textarea>
               </div>
@@ -753,7 +822,7 @@
           <p class="phrase">Queremos disfrutar cada momento con ustedes, porque compartir este día es un regalo que Dios nos dio.</p>
         </div>
         <div class="module-content">
-          <div class="card framed" style="max-width:620px;margin:0 auto">
+          <div class="card framed">
             <ol class="timeline" id="timeline"></ol>
             <div class="center" style="margin-top:28px">
               <a href="/cronograma.ics" id="link-ics-cronograma" class="btn btn-dark">
@@ -810,7 +879,7 @@
           <p class="phrase">«Todo tiene su tiempo»… y este es tiempo de bailar. Vayan calentando con lo que va a sonar en la pista.<cite>Eclesiastés 3</cite></p>
         </div>
         <div class="module-content">
-          <div class="card framed" id="playlists" style="max-width:620px;margin:0 auto"></div>
+          <div class="card framed" id="playlists"></div>
         </div>
       </div>
     </section>
@@ -827,7 +896,7 @@
           <p class="phrase">Queremos ver este día también a través de sus ojos. Cada foto que compartan es un recuerdo que vamos a guardar para siempre.</p>
         </div>
         <div class="module-content">
-          <div class="card framed center" style="max-width:600px;margin:0 auto">
+          <div class="card framed center">
             <p style="margin-top:0">Subí tus fotos y videos al álbum compartido. Vamos a poder verlos todos juntos.</p>
             <a id="btn-album" class="btn btn-dark" target="_blank" rel="noopener" aria-disabled="true">Ir al álbum compartido</a>
           </div>
@@ -845,7 +914,7 @@
           <div class="ornament" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M7 0l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="currentColor"/></svg></div>
           <p class="phrase">Si necesitás algo, escribiles a quienes nos acompañan en la organización. Te van a ayudar con mucho cariño.</p>
         </div>
-        <div class="grid-2" id="contactos" style="max-width:680px;margin:0 auto"></div>
+        <div class="grid-2" id="contactos"></div>
       </div>
     </section>
 
@@ -886,6 +955,9 @@
 
       // PDF de la invitación formal (cuando esté lista)
       invitacionPdf: "",
+
+      // Opciones de menú para la confirmación (lista fija)
+      menus: ["Sin restricciones", "Celíaco (sin TACC)", "Vegetariano", "Vegano"],
 
       // Fecha límite para confirmar (texto)
       fechaLimiteConfirmacion: "17 de febrero de 2027",
@@ -1242,6 +1314,12 @@
             <p class="err-msg">Revisá el número: por ejemplo 11 2345 6789.</p>
           </div>
           <div class="field">
+            <label for="menu-${id}">Menú</label>
+            <select id="menu-${id}" data-k="menu">
+              ${CONFIG.menus.map(m => `<option value="${m}">${m}</option>`).join("")}
+            </select>
+          </div>
+          <div class="field">
             <span class="label">${esPrimera ? "¿Vas a venir?" : "¿Viene?"}</span>
             <div class="choice-row">
               <label class="choice"><input type="radio" name="asiste-${id}" value="Sí" /><span>${esPrimera ? "¡Sí, ahí voy a estar!" : "Sí, viene"}</span></label>
@@ -1310,14 +1388,14 @@
           marcar($("[data-k=apellido]", b), !apellido);
           marcar($("[data-k=telefono]", b), tel === null || (primera && !tel));
           marcar($("input[type=radio]", b), !asisteEl);
-          personas.push({ nombre, apellido, telefono: tel || "", asiste: asisteEl ? asisteEl.value : "" });
+          personas.push({ nombre, apellido, telefono: tel || "", menu: val("menu"), asiste: asisteEl ? asisteEl.value : "" });
         });
         if (!valido) { $(".field.err input", form)?.focus(); return; }
         if (!CONFIG.appsScriptUrl) { mostrarMsg(msg, "La confirmación online se habilita muy pronto. ¡Gracias por la paciencia!"); return; }
         const btn = $("button[type=submit]", form);
         btn.disabled = true; btn.textContent = "Enviando…";
         try {
-          await enviar({ tipo: "confirmacion", personas, restricciones: $("#rsvp-restricciones").value, mensaje: $("#rsvp-mensaje").value });
+          await enviar({ tipo: "confirmacion", personas, mensaje: $("#rsvp-mensaje").value });
           const p1 = personas[0];
           form.reset(); reiniciar();
           msg.classList.add("hidden");
@@ -1446,10 +1524,14 @@
     }
 
     function initMesas() {
-      const n = CONFIG.mesas.cantidad, mitad = Math.ceil(n / 2);
-      const dot = i => `<div class="table-dot">${String(i).padStart(2, "0")}</div>`;
-      $("#tables-left").innerHTML = Array.from({ length: mitad }, (_, i) => dot(i + 1)).join("");
-      $("#tables-right").innerHTML = Array.from({ length: n - mitad }, (_, i) => dot(mitad + i + 1)).join("");
+      // Numeración desde la mesa de los novios hacia la entrada:
+      // la 1 a la derecha, la 2 a la izquierda, la 3 a la derecha, y así.
+      const n = CONFIG.mesas.cantidad, filas = Math.ceil(n / 2);
+      const dot = i => i <= n ? `<div class="table-dot">${String(i).padStart(2, "0")}</div>` : `<div class="table-dot" style="visibility:hidden"></div>`;
+      const izq = [], der = [];
+      for (let f = filas - 1; f >= 0; f--) { der.push(dot(2 * f + 1)); izq.push(dot(2 * f + 2)); }
+      $("#tables-left").innerHTML = izq.join("");
+      $("#tables-right").innerHTML = der.join("");
       setLink($("#btn-mesas"), CONFIG.mesas.url);
       if (CONFIG.mesas.url) $("#mesas-hint").classList.add("hidden");
     }

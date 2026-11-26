@@ -12,7 +12,7 @@ const HOJA_CONFIRMACIONES = "Confirmaciones";
 const HOJA_REGALOS = "Regalos";
 const CARPETA_COMPROBANTES = "Comprobantes Boda Cami y Ricky";
 
-const COLUMNAS_CONFIRMACIONES = ["Fecha", "Nombre", "Apellido", "Asiste", "Teléfono", "WhatsApp", "Restricciones", "Mensaje", "Confirmó junto con"];
+const COLUMNAS_CONFIRMACIONES = ["Fecha", "Nombre", "Apellido", "Asiste", "Teléfono", "WhatsApp", "Menú", "Mensaje", "Confirmó junto con"];
 const COLUMNAS_REGALOS = ["Fecha", "Nombre", "Moneda", "Monto", "Monto en pesos", "Estado", "Comprobante", "Mensaje"];
 
 /** GET ?accion=fondo → { ok, recaudado } (suma de "Monto en pesos" de los regalos aprobados) */
@@ -53,8 +53,9 @@ function guardarConfirmacion_(d) {
 
   personas.forEach((p, i) => {
     const tel = String(p.telefono || "").replace(/\D/g, "").slice(0, 15);
+    const menu = limpiar_(p.menu || (i === 0 ? (d.restricciones || d.menu) : "") || "Sin restricciones");
     hoja.appendRow([ahora, limpiar_(p.nombre), limpiar_(p.apellido), p.asiste === "Sí" ? "Sí" : "No",
-                    tel ? "'+" + tel : "", "", i === 0 ? limpiar_(d.restricciones || d.menu) : "",
+                    tel ? "'+" + tel : "", "", menu,
                     i === 0 ? limpiar_(d.mensaje) : "", i === 0 ? "" : principal.trim()]);
     if (tel) {
       const fila = hoja.getLastRow();
