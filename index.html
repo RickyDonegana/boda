@@ -271,13 +271,20 @@
     .head-table { margin: 0 auto; max-width: 240px; border: 1px solid var(--ink); background: var(--ink); color: #fff; text-align: center; padding: 10px; font-family: var(--caps); font-size: 11px; letter-spacing: .2em; }
 
     /* ---------- Música ---------- */
-    .playlist { padding: 20px 0; border-bottom: 1px solid var(--line-2); }
-    .playlist:first-child { padding-top: 0; }
-    .playlist:last-child { border-bottom: 0; padding-bottom: 0; }
-    .playlist-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-    .playlist h3 { font-family: var(--display); font-weight: 500; font-size: 24px; margin: 0; }
-    .playlist iframe { display: block; width: 100%; height: 152px; border: 0; border-radius: 12px; background: #121212; }
-    .playlist .abrir { font-size: 14px; color: var(--ink-2); white-space: nowrap; }
+    .pl-card { display: flex; align-items: center; gap: 18px; padding: 18px 0; border-bottom: 1px solid var(--line-2); text-decoration: none; color: inherit; }
+    .pl-card:first-child { padding-top: 0; }
+    .pl-card:last-child { border-bottom: 0; padding-bottom: 0; }
+    .pl-cover { flex: none; width: 92px; height: 92px; padding: 4px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform .3s; }
+    .pl-cover img, .pl-cover .ph { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pl-cover .ph { background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .pl-cover .ph svg { width: 28px; height: 28px; opacity: .8; }
+    .pl-card:hover .pl-cover { transform: rotate(-2deg) scale(1.03); }
+    .pl-info { min-width: 0; }
+    .pl-info h3 { font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1.15; margin: 4px 0 6px; }
+    .pl-cta { display: inline-flex; align-items: center; gap: 6px; font-family: var(--caps); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+    .pl-card:hover .pl-cta { border-color: var(--ink); color: var(--ink); }
+    .pl-cta svg { width: 14px; height: 14px; }
+    @media (min-width: 700px) { .pl-cover { width: 112px; height: 112px; } .pl-info h3 { font-size: 30px; } }
 
     /* ---------- Bloqueo ---------- */
     .lock-card { text-align: center; padding: 40px 24px; }
@@ -1448,19 +1455,29 @@
     }
 
     function initMusica() {
-      // Reproductor de Spotify integrado: la portada y las canciones se actualizan solas desde Spotify
-      const idDe = url => (String(url).match(/playlist\/([A-Za-z0-9]+)/) || [])[1];
-      $("#playlists").innerHTML = CONFIG.musica.map(m => {
-        const id = idDe(m.url);
-        return `
-        <div class="playlist">
-          <div class="playlist-head">
-            <div><span class="caps muted" style="font-size:10px;display:block;line-height:1.6">${m.tanda}</span><h3>${m.titulo}</h3></div>
-            <a class="abrir" href="${m.url}" target="_blank" rel="noopener">Abrir en Spotify</a>
+      // Tarjetas propias: la portada se trae de Spotify en cada visita, así se actualiza sola
+      const nota = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+      const spotify = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.6 14.4a.62.62 0 01-.86.21c-2.35-1.44-5.3-1.76-8.79-.96a.62.62 0 11-.28-1.22c3.81-.87 7.08-.5 9.72 1.12.3.18.39.56.21.85zm1.22-2.72a.78.78 0 01-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.17a.78.78 0 11-.45-1.5c3.63-1.1 8.15-.57 11.24 1.33.37.22.48.7.25 1.08zm.1-2.83C14.7 8.94 9.37 8.76 6.3 9.7a.94.94 0 11-.55-1.8c3.53-1.07 9.4-.86 13.1 1.34a.94.94 0 01-.95 1.62z"/></svg>';
+      $("#playlists").innerHTML = CONFIG.musica.map((m, i) => `
+        <a class="pl-card" href="${m.url}" target="_blank" rel="noopener">
+          <div class="pl-cover" data-i="${i}"><div class="ph">${nota}</div></div>
+          <div class="pl-info">
+            <span class="caps muted" style="font-size:10px;display:block;line-height:1.6">${m.tanda}</span>
+            <h3>${m.titulo}</h3>
+            <span class="pl-cta">${spotify} Escuchar en Spotify</span>
           </div>
-          ${id ? `<iframe title="Playlist ${m.titulo} en Spotify" src="https://open.spotify.com/embed/playlist/${id}?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>` : ""}
-        </div>`;
-      }).join("");
+        </a>`).join("");
+      CONFIG.musica.forEach(async (m, i) => {
+        try {
+          const r = await fetch("https://open.spotify.com/oembed?url=" + encodeURIComponent(m.url));
+          const d = await r.json();
+          if (!d.thumbnail_url) return;
+          const img = new Image();
+          img.alt = "Portada de la playlist " + m.titulo;
+          img.onload = () => { const c = $(`.pl-cover[data-i="${i}"]`); c.innerHTML = ""; c.appendChild(img); };
+          img.src = d.thumbnail_url;
+        } catch (e) { /* si Spotify no responde, queda el ícono */ }
+      });
     }
 
     function initPreboda() {
