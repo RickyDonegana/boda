@@ -271,9 +271,13 @@
     .head-table { margin: 0 auto; max-width: 240px; border: 1px solid var(--ink); background: var(--ink); color: #fff; text-align: center; padding: 10px; font-family: var(--caps); font-size: 11px; letter-spacing: .2em; }
 
     /* ---------- Música ---------- */
-    .playlist { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line-2); }
+    .playlist { padding: 20px 0; border-bottom: 1px solid var(--line-2); }
     .playlist:first-child { padding-top: 0; }
+    .playlist:last-child { border-bottom: 0; padding-bottom: 0; }
+    .playlist-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
     .playlist h3 { font-family: var(--display); font-weight: 500; font-size: 24px; margin: 0; }
+    .playlist iframe { display: block; width: 100%; height: 152px; border: 0; border-radius: 12px; background: #121212; }
+    .playlist .abrir { font-size: 14px; color: var(--ink-2); white-space: nowrap; }
 
     /* ---------- Bloqueo ---------- */
     .lock-card { text-align: center; padding: 40px 24px; }
@@ -1444,11 +1448,19 @@
     }
 
     function initMusica() {
-      $("#playlists").innerHTML = CONFIG.musica.map(m => `
+      // Reproductor de Spotify integrado: la portada y las canciones se actualizan solas desde Spotify
+      const idDe = url => (String(url).match(/playlist\/([A-Za-z0-9]+)/) || [])[1];
+      $("#playlists").innerHTML = CONFIG.musica.map(m => {
+        const id = idDe(m.url);
+        return `
         <div class="playlist">
-          <div><span class="caps muted" style="font-size:10px;display:block;line-height:1.6">${m.tanda}</span><h3>${m.titulo}</h3></div>
-          <a class="btn btn-light btn-small" href="${m.url}" target="_blank" rel="noopener">Spotify</a>
-        </div>`).join("");
+          <div class="playlist-head">
+            <div><span class="caps muted" style="font-size:10px;display:block;line-height:1.6">${m.tanda}</span><h3>${m.titulo}</h3></div>
+            <a class="abrir" href="${m.url}" target="_blank" rel="noopener">Abrir en Spotify</a>
+          </div>
+          ${id ? `<iframe title="Playlist ${m.titulo} en Spotify" src="https://open.spotify.com/embed/playlist/${id}?utm_source=generator&theme=0" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>` : ""}
+        </div>`;
+      }).join("");
     }
 
     function initPreboda() {
