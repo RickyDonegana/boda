@@ -1281,6 +1281,15 @@
       return d.length === 10 ? "549" + d : null;
     }
 
+    /* Formato para mostrar: 5491123456789 → 11 2345-6789; otro país → +61 412345678 */
+    function formatearTelefono(d) {
+      if (d.startsWith("549") && d.length === 13) {
+        const n = d.slice(3);
+        return n.startsWith("11") ? `11 ${n.slice(2, 6)}-${n.slice(6)}` : `${n.slice(0, 3)} ${n.slice(3, 6)}-${n.slice(6)}`;
+      }
+      return "+" + d;
+    }
+
     function initRsvp() {
       $("#rsvp-deadline").textContent = CONFIG.fechaLimiteConfirmacion;
       const form = $("#form-rsvp"), msg = $("#rsvp-msg");
@@ -1370,6 +1379,12 @@
       });
 
       form.addEventListener("input", e => { const f = e.target.closest(".field"); f && f.classList.remove("err"); });
+      // Al salir del campo, el teléfono se acomoda solo (sin +54 9, sin 0 ni 15)
+      form.addEventListener("focusout", e => {
+        if (e.target.dataset.k !== "telefono") return;
+        const t = normalizarTelefono(e.target.value);
+        if (t) e.target.value = formatearTelefono(t);
+      });
       form.addEventListener("change", e => { const f = e.target.closest(".field"); f && f.classList.remove("err"); });
 
       form.addEventListener("submit", async e => {

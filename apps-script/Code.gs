@@ -55,20 +55,31 @@ function guardarConfirmacion_(d) {
     const tel = String(p.telefono || "").replace(/\D/g, "").slice(0, 15);
     const menu = limpiar_(p.menu || (i === 0 ? (d.restricciones || d.menu) : "") || "Sin restricciones");
     hoja.appendRow([ahora, limpiar_(p.nombre), limpiar_(p.apellido), p.asiste === "Sí" ? "Sí" : "No",
-                    tel ? "'+" + tel : "", "", menu,
+                    tel ? "'" + formatearTel_(tel) : "", "", menu,
                     i === 0 ? limpiar_(d.mensaje) : "", i === 0 ? "" : principal.trim()]);
     if (tel) {
-      const fila = hoja.getLastRow();
-      const colNombre = COLUMNAS_CONFIRMACIONES.indexOf("Nombre") + 1;
+      // Link al chat de WhatsApp con un mensaje que usa el nombre de la persona.
+      // Se guarda como enlace (no como fórmula) para que funcione con cualquier configuración regional.
+      const nombre = String(p.nombre || "").trim();
+      const texto = "Hola " + nombre + ", te escribimos Cami y Ricky por el casamiento.";
+      const url = "https://wa.me/" + tel + "?text=" + encodeURIComponent(texto);
+      const etiqueta = "Escribir a " + nombre;
+      const link = SpreadsheetApp.newRichTextValue().setText(etiqueta).setLinkUrl(url).build();
       const colWa = COLUMNAS_CONFIRMACIONES.indexOf("WhatsApp") + 1;
-      const refNombre = hoja.getRange(fila, colNombre).getA1Notation();
-      // Link al chat de WhatsApp con un mensaje que usa el nombre de la persona
-      hoja.getRange(fila, colWa).setFormula(
-        '=HYPERLINK("https://wa.me/' + tel + '?text="&ENCODEURL("Hola "&' + refNombre +
-        '&", te escribimos Cami y Ricky por el casamiento."), "Escribir a "&' + refNombre + ')');
+      hoja.getRange(hoja.getLastRow(), colWa).setRichTextValue(link);
     }
   });
   return { ok: true };
+}
+
+/** Muestra el teléfono en formato local: 5491123456789 → 11 2345-6789. Otros países: +61 412345678. */
+function formatearTel_(tel) {
+  if (tel.indexOf("549") === 0 && tel.length === 13) {
+    const d = tel.slice(3);
+    if (d.indexOf("11") === 0) return "11 " + d.slice(2, 6) + "-" + d.slice(6);
+    return d.slice(0, 3) + " " + d.slice(3, 6) + "-" + d.slice(6);
+  }
+  return "+" + tel;
 }
 
 /** Si la hoja tiene el encabezado viejo y todavía no tiene datos, lo actualiza. */
