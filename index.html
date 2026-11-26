@@ -899,19 +899,19 @@
         { hora: "13:00", que: "Recepción", clave: true },
         { hora: "14:00 a 15:30", que: "Ceremonia", clave: true },
         { hora: "15:30 a 17:00", que: "Almuerzo" },
-        { hora: "17:00 a 17:30", que: "Primera tanda de baile", sub: "Años 80 y 90", musica: true },
+        { hora: "17:00 a 17:30", que: "Rebobinando", sub: "Primera tanda de baile · años 80 y 90", musica: true },
         { hora: "17:30 a 18:00", que: "Postre" },
-        { hora: "18:00 a 18:30", que: "Segunda tanda de baile", sub: "Años 2000", musica: true },
+        { hora: "18:00 a 18:30", que: "Dosmil y pico", sub: "Segunda tanda de baile · años 2000", musica: true },
         { hora: "18:30 a 19:00", que: "Mesa dulce y café" },
-        { hora: "19:00 a 19:30", que: "Tercera tanda de baile", sub: "De 2010 a hoy", musica: true },
+        { hora: "19:00 a 19:30", que: "La última y nos vamos", sub: "Tercera tanda de baile · de 2010 a hoy", musica: true },
         { hora: "19:30 a 20:00", que: "Brindis final", clave: true },
         { hora: "20:00", que: "Despedida" }
       ],
 
       musica: [
-        { tanda: "Primera tanda · 17 hs", titulo: "Años 80 y 90", url: "https://open.spotify.com/search/80s%2090s%20fiesta" },
-        { tanda: "Segunda tanda · 18 hs", titulo: "Años 2000", url: "https://open.spotify.com/search/2000s%20fiesta" },
-        { tanda: "Tercera tanda · 19 hs", titulo: "De 2010 a hoy", url: "https://open.spotify.com/search/2010s%20fiesta" }
+        { tanda: "Primera tanda · 17 hs · años 80 y 90", titulo: "Rebobinando", url: "https://open.spotify.com/playlist/2r3nLGunQpnh7wHevJa25M" },
+        { tanda: "Segunda tanda · 18 hs · años 2000", titulo: "Dosmil y pico", url: "https://open.spotify.com/playlist/0In44x3aJ4GVuRhbHrb8fH" },
+        { tanda: "Tercera tanda · 19 hs · de 2010 a hoy", titulo: "La última y nos vamos", url: "https://open.spotify.com/playlist/3gsf8xMhIk4VJKkKbff8Lr" }
       ],
 
       mesas: { cantidad: 14, url: "" },
@@ -1446,7 +1446,7 @@
     function initMusica() {
       $("#playlists").innerHTML = CONFIG.musica.map(m => `
         <div class="playlist">
-          <div><span class="caps muted" style="font-size:11px">${m.tanda}</span><h3>${m.titulo}</h3></div>
+          <div><span class="caps muted" style="font-size:10px;display:block;line-height:1.6">${m.tanda}</span><h3>${m.titulo}</h3></div>
           <a class="btn btn-light btn-small" href="${m.url}" target="_blank" rel="noopener">Spotify</a>
         </div>`).join("");
     }

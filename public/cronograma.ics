@@ -7,7 +7,7 @@ X-WR-CALNAME:Cronograma · Boda de Cami y Ricky
 X-WR-TIMEZONE:America/Argentina/Buenos_Aires
 BEGIN:VEVENT
 UID:cronograma-general-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T160000Z
 DTEND:20270417T230000Z
 SUMMARY:Boda de Cami y Ricky
@@ -29,7 +29,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-00-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T160000Z
 DTEND:20270417T170000Z
 SUMMARY:Boda C&R · Recepción
@@ -51,7 +51,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-01-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T170000Z
 DTEND:20270417T183000Z
 SUMMARY:Boda C&R · Ceremonia
@@ -68,12 +68,12 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-02-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T183000Z
 DTEND:20270417T200000Z
 SUMMARY:Boda C&R · Almuerzo
 DESCRIPTION:Boda de Cami y Ricky.\nAhora: Almuerzo.\nDespués\, a las 17:00
-  hs: Primera tanda de baile.\nhttps://camiyricky.vercel.app
+  hs: Rebobinando.\nhttps://camiyricky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
@@ -85,29 +85,30 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-03-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T200000Z
 DTEND:20270417T203000Z
-SUMMARY:Boda C&R · Primera tanda de baile · Años 80 y 90
-DESCRIPTION:Boda de Cami y Ricky.\nAhora: Primera tanda de baile · Años 8
- 0 y 90.\nDespués\, a las 17:30 hs: Postre.\nhttps://camiyricky.vercel.app
+SUMMARY:Boda C&R · Rebobinando · Primera tanda de baile · años 80 y 90
+DESCRIPTION:Boda de Cami y Ricky.\nAhora: Rebobinando · Primera tanda de b
+ aile · años 80 y 90.\nDespués\, a las 17:30 hs: Postre.\nhttps://camiyr
+ icky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:PT0M
 ACTION:DISPLAY
-DESCRIPTION:Ahora: Primera tanda de baile · Años 80 y 90
+DESCRIPTION:Ahora: Rebobinando · Primera tanda de baile · años 80 y 90
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-04-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T203000Z
 DTEND:20270417T210000Z
 SUMMARY:Boda C&R · Postre
 DESCRIPTION:Boda de Cami y Ricky.\nAhora: Postre.\nDespués\, a las 18:00 h
- s: Segunda tanda de baile.\nhttps://camiyricky.vercel.app
+ s: Dosmil y pico.\nhttps://camiyricky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
@@ -119,30 +120,30 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-05-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T210000Z
 DTEND:20270417T213000Z
-SUMMARY:Boda C&R · Segunda tanda de baile · Años 2000
-DESCRIPTION:Boda de Cami y Ricky.\nAhora: Segunda tanda de baile · Años 2
- 000.\nDespués\, a las 18:30 hs: Mesa dulce y café.\nhttps://camiyricky.v
- ercel.app
+SUMMARY:Boda C&R · Dosmil y pico · Segunda tanda de baile · años 2000
+DESCRIPTION:Boda de Cami y Ricky.\nAhora: Dosmil y pico · Segunda tanda de
+  baile · años 2000.\nDespués\, a las 18:30 hs: Mesa dulce y café.\nhtt
+ ps://camiyricky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:PT0M
 ACTION:DISPLAY
-DESCRIPTION:Ahora: Segunda tanda de baile · Años 2000
+DESCRIPTION:Ahora: Dosmil y pico · Segunda tanda de baile · años 2000
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-06-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T213000Z
 DTEND:20270417T220000Z
 SUMMARY:Boda C&R · Mesa dulce y café
 DESCRIPTION:Boda de Cami y Ricky.\nAhora: Mesa dulce y café.\nDespués\, a
-  las 19:00 hs: Tercera tanda de baile.\nhttps://camiyricky.vercel.app
+  las 19:00 hs: La última y nos vamos.\nhttps://camiyricky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
@@ -154,25 +155,27 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-07-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T220000Z
 DTEND:20270417T223000Z
-SUMMARY:Boda C&R · Tercera tanda de baile · De 2010 a hoy
-DESCRIPTION:Boda de Cami y Ricky.\nAhora: Tercera tanda de baile · De 2010
-  a hoy.\nDespués\, a las 19:30 hs: Brindis final.\nhttps://camiyricky.ver
- cel.app
+SUMMARY:Boda C&R · La última y nos vamos · Tercera tanda de baile · de 
+ 2010 a hoy
+DESCRIPTION:Boda de Cami y Ricky.\nAhora: La última y nos vamos · Tercera
+  tanda de baile · de 2010 a hoy.\nDespués\, a las 19:30 hs: Brindis fina
+ l.\nhttps://camiyricky.vercel.app
 LOCATION:Quinta Querandí\, Azcuénaga 1318\, General Rodríguez\, Buenos A
  ires
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:PT0M
 ACTION:DISPLAY
-DESCRIPTION:Ahora: Tercera tanda de baile · De 2010 a hoy
+DESCRIPTION:Ahora: La última y nos vamos · Tercera tanda de baile · de 2
+ 010 a hoy
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-08-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T223000Z
 DTEND:20270417T230000Z
 SUMMARY:Boda C&R · Brindis final
@@ -189,7 +192,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:cronograma-09-cami-ricky-20270417@camiyricky
-DTSTAMP:20261124T180055Z
+DTSTAMP:20261126T120425Z
 DTSTART:20270417T230000Z
 DTEND:20270417T233000Z
 SUMMARY:Boda C&R · Despedida
