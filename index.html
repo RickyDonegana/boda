@@ -115,7 +115,9 @@
     .btn-light { background: transparent; color: var(--ink); }
     .btn-light:hover { background: var(--ink); color: #fff; }
     .btn-small { min-height: 38px; padding: 8px 14px; font-size: 11px; }
-    .btn[aria-disabled="true"], .btn:disabled { opacity: .45; pointer-events: none; }
+    .btn:disabled { opacity: .45; pointer-events: none; }
+    .btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+    .btn[aria-disabled="true"]:hover { transform: none; }
     .btn-block { width: 100%; }
 
     /* ---------- Contenedores ---------- */
@@ -648,7 +650,7 @@
           </div>
 
           <div class="center" style="margin-top:28px">
-            <a id="btn-invitacion" class="btn btn-light" target="_blank" rel="noopener" aria-disabled="true">
+            <a id="btn-invitacion" class="btn btn-light" target="_blank" rel="noopener" aria-disabled="true" data-pronto="La invitación formal en PDF la compartimos muy pronto.">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>
               <span id="btn-invitacion-text">Invitación formal (PDF) · muy pronto</span>
             </a>
@@ -702,7 +704,7 @@
     <!-- =====================================================================
          III · NUESTRA PREBODA
          ===================================================================== -->
-    <section id="preboda" class="section" data-unlock="2027-03-17">
+    <section id="preboda" class="section" data-unlock="2027-01-17">
       <div class="wrap">
         <div class="sec-head">
           <div class="sec-num">III</div>
@@ -712,7 +714,7 @@
         </div>
         <div class="module-content">
           <div id="preboda-gallery" class="gallery"></div>
-          <div id="preboda-empty" class="card center"><p class="muted" style="margin:0">Muy pronto vamos a compartir acá las fotos de nuestra preboda.</p></div>
+          <div id="preboda-empty" class="card center"><p class="muted" style="margin:0">El 17 de marzo vamos a compartir acá las fotos de nuestra preboda.</p></div>
         </div>
       </div>
     </section>
@@ -813,7 +815,7 @@
     <!-- =====================================================================
          V · CRONOGRAMA
          ===================================================================== -->
-    <section id="cronograma" class="section" data-unlock="2027-02-17">
+    <section id="cronograma" class="section" data-unlock="2027-01-17">
       <div class="wrap">
         <div class="sec-head">
           <div class="sec-num">V</div>
@@ -839,7 +841,7 @@
     <!-- =====================================================================
          VI · MESAS
          ===================================================================== -->
-    <section id="mesas" class="section" data-unlock="2027-04-03">
+    <section id="mesas" class="section" data-unlock="2027-01-17">
       <div class="wrap">
         <div class="sec-head">
           <div class="sec-num">VI</div>
@@ -859,8 +861,8 @@
               <div class="head-table">Mesa de los novios</div>
             </div>
             <div class="center" style="margin-top:24px">
-              <a id="btn-mesas" class="btn btn-dark" target="_blank" rel="noopener" aria-disabled="true">Consultar mi mesa</a>
-              <p class="hint" id="mesas-hint">La lista de mesas se publica muy pronto.</p>
+              <a id="btn-mesas" class="btn btn-dark" target="_blank" rel="noopener" aria-disabled="true" data-pronto="Las mesas se publican el 3 de abril. ¡Te avisamos por WhatsApp!">Consultar mi mesa</a>
+              <p class="hint" id="mesas-hint">La lista de mesas se publica el 3 de abril.</p>
             </div>
           </div>
         </div>
@@ -870,7 +872,7 @@
     <!-- =====================================================================
          VII · MÚSICA
          ===================================================================== -->
-    <section id="musica" class="section" data-unlock="2027-04-10">
+    <section id="musica" class="section" data-unlock="2027-01-17">
       <div class="wrap">
         <div class="sec-head">
           <div class="sec-num">VII</div>
@@ -887,7 +889,7 @@
     <!-- =====================================================================
          VIII · FOTOS DEL DÍA
          ===================================================================== -->
-    <section id="fotos" class="section" data-unlock="2027-04-17">
+    <section id="fotos" class="section" data-unlock="2027-01-17">
       <div class="wrap">
         <div class="sec-head">
           <div class="sec-num">VIII</div>
@@ -898,7 +900,7 @@
         <div class="module-content">
           <div class="card framed center">
             <p style="margin-top:0">Subí tus fotos y videos al álbum compartido. Vamos a poder verlos todos juntos.</p>
-            <a id="btn-album" class="btn btn-dark" target="_blank" rel="noopener" aria-disabled="true">Ir al álbum compartido</a>
+            <a id="btn-album" class="btn btn-dark" target="_blank" rel="noopener" aria-disabled="true" data-pronto="El álbum se abre el día del casamiento, el 17 de abril.">Ir al álbum compartido</a>
           </div>
         </div>
       </div>
@@ -1021,12 +1023,12 @@
     const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     const fechaLarga = iso => { const [y, m, d] = iso.split("-").map(Number); return `${d} de ${MESES[m - 1]} de ${y}`; };
 
-    function toast(msg) {
+    function toast(msg, ms) {
       const t = $("#toast");
       t.textContent = msg;
       t.classList.add("show");
       clearTimeout(toast._t);
-      toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+      toast._t = setTimeout(() => t.classList.remove("show"), ms || 2600);
     }
 
     async function copiar(texto) {
@@ -1053,6 +1055,14 @@
         el.setAttribute("aria-disabled", "true");
       }
     }
+
+    /* Botones de cosas que todavía no están: avisan cuándo llegan */
+    document.addEventListener("click", e => {
+      const b = e.target.closest('[aria-disabled="true"]');
+      if (!b) return;
+      e.preventDefault();
+      toast(b.dataset.pronto || "Muy pronto vas a poder verlo acá.", 4000);
+    });
 
     const esMovil = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
