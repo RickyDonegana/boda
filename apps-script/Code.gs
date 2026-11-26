@@ -12,7 +12,7 @@ const HOJA_CONFIRMACIONES = "Confirmaciones";
 const HOJA_REGALOS = "Regalos";
 const CARPETA_COMPROBANTES = "Comprobantes Boda Cami y Ricky";
 
-const COLUMNAS_CONFIRMACIONES = ["Fecha", "Nombre", "Asiste", "Acompañantes", "Menú", "Mensaje"];
+const COLUMNAS_CONFIRMACIONES = ["Fecha", "Nombre", "Apellido", "Asiste", "Teléfono", "WhatsApp", "Restricciones", "Mensaje", "Confirmó junto con"];
 const COLUMNAS_REGALOS = ["Fecha", "Nombre", "Moneda", "Monto", "Monto en pesos", "Estado", "Comprobante", "Mensaje"];
 
 /** GET ?accion=fondo → { ok, recaudado } (suma de "Monto en pesos" de los regalos aprobados) */
@@ -37,11 +37,46 @@ function doPost(e) {
 }
 
 function guardarConfirmacion_(d) {
-  if (!d.nombre || !d.asiste) return { ok: false, error: "Faltan datos" };
+  // Formato nuevo: d.personas = [{nombre, apellido, telefono, asiste}]
+  // Formato anterior (por compatibilidad): d.nombre, d.asiste, d.acompanantes, d.menu
+  let personas = Array.isArray(d.personas) ? d.personas : [];
+  if (!personas.length && d.nombre) {
+    personas = [{ nombre: d.nombre, apellido: "", telefono: "", asiste: d.asiste }];
+  }
+  personas = personas.filter(p => p && p.nombre && p.asiste).slice(0, 10);
+  if (!personas.length) return { ok: false, error: "Faltan datos" };
+
   const hoja = hoja_(HOJA_CONFIRMACIONES, COLUMNAS_CONFIRMACIONES);
-  hoja.appendRow([new Date(), limpiar_(d.nombre), limpiar_(d.asiste), limpiar_(d.acompanantes),
-                  limpiar_(d.menu), limpiar_(d.mensaje)]);
+  asegurarEncabezado_(hoja, COLUMNAS_CONFIRMACIONES);
+  const principal = limpiar_(personas[0].nombre) + " " + limpiar_(personas[0].apellido);
+  const ahora = new Date();
+
+  personas.forEach((p, i) => {
+    const tel = String(p.telefono || "").replace(/\D/g, "").slice(0, 15);
+    hoja.appendRow([ahora, limpiar_(p.nombre), limpiar_(p.apellido), p.asiste === "Sí" ? "Sí" : "No",
+                    tel ? "'+" + tel : "", "", i === 0 ? limpiar_(d.restricciones || d.menu) : "",
+                    i === 0 ? limpiar_(d.mensaje) : "", i === 0 ? "" : principal.trim()]);
+    if (tel) {
+      const fila = hoja.getLastRow();
+      const colNombre = COLUMNAS_CONFIRMACIONES.indexOf("Nombre") + 1;
+      const colWa = COLUMNAS_CONFIRMACIONES.indexOf("WhatsApp") + 1;
+      const refNombre = hoja.getRange(fila, colNombre).getA1Notation();
+      // Link al chat de WhatsApp con un mensaje que usa el nombre de la persona
+      hoja.getRange(fila, colWa).setFormula(
+        '=HYPERLINK("https://wa.me/' + tel + '?text="&ENCODEURL("Hola "&' + refNombre +
+        '&", te escribimos Cami y Ricky por el casamiento."), "Escribir a "&' + refNombre + ')');
+    }
+  });
   return { ok: true };
+}
+
+/** Si la hoja tiene el encabezado viejo y todavía no tiene datos, lo actualiza. */
+function asegurarEncabezado_(hoja, columnas) {
+  const actual = hoja.getRange(1, 1, 1, columnas.length).getValues()[0];
+  const igual = columnas.every((c, i) => actual[i] === c);
+  if (!igual && hoja.getLastRow() <= 1) {
+    hoja.getRange(1, 1, 1, columnas.length).setValues([columnas]).setFontWeight("bold");
+  }
 }
 
 function guardarRegalo_(d) {

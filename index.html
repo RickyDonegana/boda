@@ -366,6 +366,21 @@
 
     .btn.copied { background: var(--ink); color: #fff; }
 
+    .persona { border: 1px solid var(--line); padding: 18px 16px 6px; margin: 0 0 16px; background: var(--paper); position: relative; }
+    .persona legend { font-family: var(--caps); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; padding: 0 8px; color: var(--ink-2); }
+    .persona .field input[type=text], .persona .field input[type=tel] { background: #fff; }
+    .persona .row-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+    .persona .row-2 .field + .field { margin-top: 0; }
+    .persona .row-2 + .field { margin-top: 16px; }
+    .persona .quitar { position: absolute; top: -12px; right: 10px; background: var(--paper); border: 1px solid var(--line); font-size: 13px; padding: 2px 10px; cursor: pointer; color: var(--ink-2); }
+    .field input[type=tel] { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid var(--line); background: var(--paper); border-radius: var(--radius); font-size: 17px; }
+    .field input[type=tel]:focus { outline: 2px solid var(--ink); outline-offset: 1px; background: #fff; }
+    .field.err input[type=tel] { border-color: #B3261E; }
+    .add-persona { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 46px; background: none; border: 1px dashed var(--soft); cursor: pointer; font-size: 16px; color: var(--ink-2); }
+    .add-persona:hover { border-color: var(--ink); color: var(--ink); }
+    .add-persona svg { width: 16px; height: 16px; }
+    @media (max-width: 420px) { .persona .row-2 { grid-template-columns: minmax(0,1fr); } .persona .row-2 .field + .field { margin-top: 16px; } }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; }
       .scroll-cue span.line { animation: none; }
@@ -582,32 +597,14 @@
             <p class="center" style="margin-top:0">Por favor, confirmá antes del <strong id="rsvp-deadline">17 de febrero de 2027</strong>.</p>
             <p class="hint center" style="margin:-6px 0 18px">Para esta celebración, los únicos niños invitados son los de la familia. Gracias por entenderlo y acompañarnos.</p>
             <form id="form-rsvp" novalidate>
-              <div class="field">
-                <label for="rsvp-nombre">Nombre y apellido</label>
-                <input type="text" id="rsvp-nombre" name="nombre" autocomplete="name" required />
-                <p class="err-msg">Escribí tu nombre y apellido.</p>
-              </div>
-              <div class="field">
-                <span class="label">¿Vas a venir?</span>
-                <div class="choice-row">
-                  <label class="choice"><input type="radio" name="asiste" value="Sí" required /><span>¡Sí, ahí voy a estar!</span></label>
-                  <label class="choice"><input type="radio" name="asiste" value="No" /><span>No voy a poder ir</span></label>
-                </div>
-                <p class="err-msg">Contanos si vas a venir.</p>
-              </div>
-              <div class="field">
-                <label for="rsvp-acomp">¿Confirmás por alguien más de tu invitación?</label>
-                <input type="text" id="rsvp-acomp" name="acompanantes" placeholder="Nombres y apellidos (opcional)" />
-              </div>
-              <div class="field">
-                <label for="rsvp-menu">Menú</label>
-                <select id="rsvp-menu" name="menu">
-                  <option value="Normal">Sin restricciones</option>
-                  <option value="Vegetariano">Vegetariano</option>
-                  <option value="Vegano">Vegano</option>
-                  <option value="Celíaco (sin TACC)">Celíaco (sin TACC)</option>
-                  <option value="Otro">Otra restricción</option>
-                </select>
+              <div id="personas"></div>
+              <button type="button" class="add-persona" id="btn-add-persona">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                Agregar a otra persona de tu invitación
+              </button>
+              <div class="field" style="margin-top:22px">
+                <label for="rsvp-restricciones">¿Alguien tiene alguna restricción alimentaria?</label>
+                <input type="text" id="rsvp-restricciones" name="restricciones" placeholder="Ej: celíaco, vegetariano (opcional)" />
               </div>
               <div class="field">
                 <label for="rsvp-mensaje">Un mensaje para los novios</label>
@@ -1181,46 +1178,140 @@
     /* =====================================================================
        CONFIRMACIÓN DE ASISTENCIA
        ===================================================================== */
+    /* Normaliza un teléfono para WhatsApp. Devuelve "" si está vacío,
+       null si no es válido, o los dígitos internacionales (ej: 5491123456789). */
+    function normalizarTelefono(raw) {
+      const s = String(raw || "").trim();
+      if (!s) return "";
+      let d = s.replace(/\D/g, "");
+      // Números de otro país: empiezan con + y un código distinto de 54
+      if (s.startsWith("+") && !d.startsWith("54")) return d.length >= 8 && d.length <= 15 ? d : null;
+      if (d.startsWith("549")) d = d.slice(3);
+      else if (d.startsWith("54")) d = d.slice(2);
+      if (d.startsWith("0")) d = d.slice(1);
+      // Si escribieron el 15 después del código de área, lo sacamos
+      if (d.length === 12) {
+        for (const ac of [2, 3, 4]) {
+          if (d.slice(ac, ac + 2) === "15") { d = d.slice(0, ac) + d.slice(ac + 2); break; }
+        }
+      }
+      return d.length === 10 ? "549" + d : null;
+    }
+
     function initRsvp() {
       $("#rsvp-deadline").textContent = CONFIG.fechaLimiteConfirmacion;
       const form = $("#form-rsvp"), msg = $("#rsvp-msg");
-      const box = $("#rsvp-box"), ok = $("#rsvp-ok");
-      const mostrarGracias = (nombre, asiste) => {
-        const primer = String(nombre).split(" ")[0];
-        $("#rsvp-ok-title").textContent = asiste === "Sí" ? `¡Gracias, ${primer}!` : `Gracias, ${primer}`;
+      const box = $("#rsvp-box"), ok = $("#rsvp-ok"), cont = $("#personas");
+      const MAX = 8;
+      let uid = 0;
+
+      function bloquePersona(esPrimera) {
+        const id = ++uid;
+        const el = document.createElement("fieldset");
+        el.className = "persona";
+        el.innerHTML = `
+          <legend>${esPrimera ? "Tus datos" : "Otra persona"}</legend>
+          ${esPrimera ? "" : '<button type="button" class="quitar" aria-label="Quitar a esta persona">Quitar</button>'}
+          <div class="row-2">
+            <div class="field">
+              <label for="nom-${id}">Nombre</label>
+              <input type="text" id="nom-${id}" data-k="nombre" autocomplete="${esPrimera ? "given-name" : "off"}" />
+              <p class="err-msg">Escribí el nombre.</p>
+            </div>
+            <div class="field">
+              <label for="ape-${id}">Apellido</label>
+              <input type="text" id="ape-${id}" data-k="apellido" autocomplete="${esPrimera ? "family-name" : "off"}" />
+              <p class="err-msg">Escribí el apellido.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tel-${id}">Teléfono (WhatsApp)${esPrimera ? "" : " · opcional"}</label>
+            <input type="tel" id="tel-${id}" data-k="telefono" inputmode="tel" placeholder="11 2345 6789" autocomplete="${esPrimera ? "tel-national" : "off"}" />
+            <p class="hint" style="margin-top:4px">Código de área sin 0 y número sin 15. Si es de otro país, empezá con + y el código.</p>
+            <p class="err-msg">Revisá el número: por ejemplo 11 2345 6789.</p>
+          </div>
+          <div class="field">
+            <span class="label">${esPrimera ? "¿Vas a venir?" : "¿Viene?"}</span>
+            <div class="choice-row">
+              <label class="choice"><input type="radio" name="asiste-${id}" value="Sí" /><span>${esPrimera ? "¡Sí, ahí voy a estar!" : "Sí, viene"}</span></label>
+              <label class="choice"><input type="radio" name="asiste-${id}" value="No" /><span>${esPrimera ? "No voy a poder ir" : "No puede ir"}</span></label>
+            </div>
+            <p class="err-msg">Elegí una opción.</p>
+          </div>`;
+        el.dataset.primera = esPrimera ? "1" : "";
+        const quitar = $(".quitar", el);
+        if (quitar) quitar.addEventListener("click", () => { el.remove(); actualizarBoton(); });
+        return el;
+      }
+
+      function actualizarBoton() {
+        $("#btn-add-persona").classList.toggle("hidden", $$(".persona", cont).length >= MAX);
+      }
+
+      function reiniciar() {
+        cont.innerHTML = "";
+        cont.appendChild(bloquePersona(true));
+        actualizarBoton();
+      }
+      reiniciar();
+
+      $("#btn-add-persona").addEventListener("click", () => {
+        const b = bloquePersona(false);
+        cont.appendChild(b);
+        actualizarBoton();
+        $("input", b).focus();
+      });
+
+      const mostrarGracias = (nombre, asiste, cantidad) => {
+        $("#rsvp-ok-title").textContent = asiste === "Sí" ? `¡Gracias, ${nombre}!` : `Gracias, ${nombre}`;
+        const otros = cantidad > 1 ? ` (y de ${cantidad - 1 === 1 ? "una persona más" : (cantidad - 1) + " personas más"})` : "";
         $("#rsvp-ok-text").textContent = asiste === "Sí"
-          ? "Recibimos tu confirmación. ¡Te esperamos el 17 de abril!"
-          : "Gracias por avisarnos. Te vamos a extrañar.";
+          ? `Recibimos tu confirmación${otros}. ¡Te esperamos el 17 de abril!`
+          : `Gracias por avisarnos${otros}. Te vamos a extrañar.`;
         box.classList.add("hidden"); ok.classList.remove("hidden");
       };
-      // Si ya confirmó desde este celular, se lo recordamos
       try {
         const prev = JSON.parse(localStorage.getItem("rsvp-cami-ricky") || "null");
-        if (prev && prev.nombre) mostrarGracias(prev.nombre, prev.asiste);
+        if (prev && prev.nombre) mostrarGracias(prev.nombre, prev.asiste, prev.cantidad || 1);
       } catch (e) {}
       $("#rsvp-otra").addEventListener("click", () => {
+        reiniciar();
         ok.classList.add("hidden"); box.classList.remove("hidden"); msg.classList.add("hidden");
-        $("#rsvp-nombre").focus();
+        $("input", cont).focus();
       });
-      const marcar = (campo, mal) => campo.closest(".field").classList.toggle("err", mal);
+
       form.addEventListener("input", e => { const f = e.target.closest(".field"); f && f.classList.remove("err"); });
+      form.addEventListener("change", e => { const f = e.target.closest(".field"); f && f.classList.remove("err"); });
+
       form.addEventListener("submit", async e => {
         e.preventDefault();
-        const fd = new FormData(form);
-        const nombre = (fd.get("nombre") || "").trim();
-        const asiste = fd.get("asiste");
-        marcar($("#rsvp-nombre"), !nombre);
-        marcar($("input[name=asiste]", form), !asiste);
-        if (!nombre || !asiste) { $(".field.err input", form)?.focus(); return; }
+        const personas = [];
+        let valido = true;
+        $$(".persona", cont).forEach(b => {
+          const primera = b.dataset.primera === "1";
+          const val = k => ($(`[data-k=${k}]`, b).value || "").trim();
+          const marcar = (el, mal) => { el.closest(".field").classList.toggle("err", mal); if (mal) valido = false; };
+          const nombre = val("nombre"), apellido = val("apellido");
+          const telRaw = val("telefono");
+          const tel = normalizarTelefono(telRaw);
+          const asisteEl = $("input[type=radio]:checked", b);
+          marcar($("[data-k=nombre]", b), !nombre);
+          marcar($("[data-k=apellido]", b), !apellido);
+          marcar($("[data-k=telefono]", b), tel === null || (primera && !tel));
+          marcar($("input[type=radio]", b), !asisteEl);
+          personas.push({ nombre, apellido, telefono: tel || "", asiste: asisteEl ? asisteEl.value : "" });
+        });
+        if (!valido) { $(".field.err input", form)?.focus(); return; }
         if (!CONFIG.appsScriptUrl) { mostrarMsg(msg, "La confirmación online se habilita muy pronto. ¡Gracias por la paciencia!"); return; }
         const btn = $("button[type=submit]", form);
         btn.disabled = true; btn.textContent = "Enviando…";
         try {
-          await enviar({ tipo: "confirmacion", nombre, asiste, acompanantes: fd.get("acompanantes"), menu: fd.get("menu"), mensaje: fd.get("mensaje") });
-          form.reset();
+          await enviar({ tipo: "confirmacion", personas, restricciones: $("#rsvp-restricciones").value, mensaje: $("#rsvp-mensaje").value });
+          const p1 = personas[0];
+          form.reset(); reiniciar();
           msg.classList.add("hidden");
-          try { localStorage.setItem("rsvp-cami-ricky", JSON.stringify({ nombre, asiste })); } catch (e) {}
-          mostrarGracias(nombre, asiste);
+          try { localStorage.setItem("rsvp-cami-ricky", JSON.stringify({ nombre: p1.nombre, asiste: p1.asiste, cantidad: personas.length })); } catch (e) {}
+          mostrarGracias(p1.nombre, p1.asiste, personas.length);
           $("#confirmar").scrollIntoView({ behavior: "smooth", block: "start" });
         } catch (err) {
           mostrarMsg(msg, "No pudimos enviar tu confirmación. Probá de nuevo en un rato.");
